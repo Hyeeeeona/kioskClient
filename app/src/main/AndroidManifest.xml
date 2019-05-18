@@ -14,9 +14,6 @@
             android:name=".LoginActivity"
             android:label="Sign In" />
         <activity android:name=".FragmentMenuHome" />
-        <activity
-            android:name=".Activity_Home"
-            android:label="@string/title_activity__home" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
