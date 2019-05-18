@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragementMenuHome extends Fragment {
+public class FragmentMenuHome extends Fragment {
 
 
-    public FragementMenuHome() {
+    public FragmentMenuHome() {
         // Required empty public constructor
     }
 
@@ -23,7 +23,7 @@ public class FragementMenuHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragement_menu_home, container, false);
+        return inflater.inflate(R.layout.fragment_menu_home, container, false);
     }
 
 }

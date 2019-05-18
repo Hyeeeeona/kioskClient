@@ -8,8 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private TextView mTextMessage;
     private FragmentManager fragmentManager;
-    private FragementMenuHome fragmentMenuHome;
+    private FragmentMenuHome fragmentMenuHome;
     private FragmentMenuSearch fragmentMenuSearch;
     private FragmentMenuCart fragmentMenuCart;
     private FragmentMenuMyPage fragmentMenuMyPage;
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         fragmentManager = getSupportFragmentManager();
-        fragmentMenuHome = new FragementMenuHome();
+        fragmentMenuHome = new FragmentMenuHome();
         fragmentMenuSearch = new FragmentMenuSearch();
         fragmentMenuCart = new FragmentMenuCart();
         fragmentMenuMyPage = new FragmentMenuMyPage();

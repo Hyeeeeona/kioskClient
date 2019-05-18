@@ -13,7 +13,6 @@
         <activity
             android:name=".LoginActivity"
             android:label="Sign In" />
-        <activity android:name=".FragmentMenuHome" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
