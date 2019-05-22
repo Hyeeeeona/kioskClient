@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentMenuCart fragmentMenuCart;
     private FragmentMenuMyPage fragmentMenuMyPage;
 
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -66,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentMenuSearch = new FragmentMenuSearch();
         fragmentMenuCart = new FragmentMenuCart();
         fragmentMenuMyPage = new FragmentMenuMyPage();
-        fragmentManager = getSupportFragmentManager();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.linear_layout, fragmentMenuHome).commitAllowingStateLoss();

@@ -5,4 +5,13 @@
     <string name="title_search">Search</string>
     <string name="title_shopping_cart">Cart</string>
     <string name="title_my_page">MyPage</string>
+
+
+    <string name="fragment_mypage_title">마이페이지</string>
+    <string name="fragment_mypage_logout">로그아웃</string>
+    <string name="fragment_mypage_order_history">주문내역</string>
+    <string name="fragment_mypage_favorite">즐겨찾기</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
