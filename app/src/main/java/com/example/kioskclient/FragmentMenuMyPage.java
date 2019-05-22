@@ -4,7 +4,6 @@ package com.example.kioskclient;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,12 +61,12 @@ public class FragmentMenuMyPage extends Fragment {
     }
 
     private void setFragment(Fragment child) {
-        FragmentTransaction childFt = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         if (!child.isAdded()) {
-            childFt.replace(R.id.linear_layout, child);
-            childFt.addToBackStack(null);
-            childFt.commit();
+            transaction.replace(R.id.linear_layout, child);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
     }
 
