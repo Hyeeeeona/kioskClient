@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentMenuCart fragmentMenuCart;
     private FragmentMenuMyPage fragmentMenuMyPage;
 
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

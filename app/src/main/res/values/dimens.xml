@@ -6,5 +6,5 @@
     <dimen name="search_button_width_height">30dp</dimen>
     <dimen name="search_text_small_size">15dp</dimen>
     <dimen name="search_text_big_size">20dp</dimen>
-
+    <dimen name="text_margin">16dp</dimen>
 </resources>

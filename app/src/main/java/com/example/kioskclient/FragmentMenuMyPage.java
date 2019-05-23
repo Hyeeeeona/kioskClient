@@ -4,6 +4,7 @@ package com.example.kioskclient;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,24 @@ public class FragmentMenuMyPage extends Fragment {
         View view = inflater.inflate(R.layout.fragment_menu_my_page, null);
         mAuth = FirebaseAuth.getInstance();
 
+
+
+        view.findViewById(R.id.favorite).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentFavorite fragmentFavorite = new FragmentFavorite();
+                setFragment(fragmentFavorite);
+            }
+        });
+
+        view.findViewById(R.id.order_history).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentOrderHistory fragmentOrderHistory = new FragmentOrderHistory();
+                setFragment(fragmentOrderHistory);
+            }
+        });
+
         view.findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +58,16 @@ public class FragmentMenuMyPage extends Fragment {
             }
         });
         return view;
+    }
+
+    private void setFragment(Fragment child) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        if (!child.isAdded()) {
+            transaction.replace(R.id.linear_layout, child);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 
 }

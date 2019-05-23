@@ -7,4 +7,9 @@
     <string name="title_my_page">MyPage</string>
     <string name="search_in_msg">오늘은 무엇을 먹을까요?</string>
     <string name="zeroRest_in_msg">검색 결과가 없습니다.</string>
+    <string name="fragment_mypage_title">마이페이지</string>
+    <string name="fragment_mypage_logout">로그아웃</string>
+    <string name="fragment_mypage_order_history">주문내역</string>
+    <string name="fragment_mypage_favorite">즐겨찾기</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
