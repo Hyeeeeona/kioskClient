@@ -1,7 +1,5 @@
 package com.example.kioskclient;
 
-import android.content.Intent;
-
 public class CartListViewItem {
     private String menuName ;
     private int menuCost ;
