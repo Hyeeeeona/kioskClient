@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentMenuSearch = new FragmentMenuSearch();
         fragmentMenuCart = new FragmentMenuCart();
         fragmentMenuMyPage = new FragmentMenuMyPage();
-        fragmentManager = getSupportFragmentManager();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.linear_layout, fragmentMenuHome).commitAllowingStateLoss();
@@ -86,4 +85,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
