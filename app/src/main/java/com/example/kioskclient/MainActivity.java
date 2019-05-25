@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentMenuSearch fragmentMenuSearch;
     private FragmentMenuCart fragmentMenuCart;
     private FragmentMenuMyPage fragmentMenuMyPage;
+    private FragmentStoreHome fragmentStoreHome;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    transaction.replace(R.id.linear_layout, fragmentMenuHome).commitAllowingStateLoss();
+                    transaction.replace(R.id.linear_layout, fragmentStoreHome).commitAllowingStateLoss();
                     return true;
                 case R.id.navigation_search:
                     transaction.replace(R.id.linear_layout, fragmentMenuSearch).commitAllowingStateLoss();
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentMenuSearch = new FragmentMenuSearch();
         fragmentMenuCart = new FragmentMenuCart();
         fragmentMenuMyPage = new FragmentMenuMyPage();
+        fragmentStoreHome = new FragmentStoreHome();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.linear_layout, fragmentMenuHome).commitAllowingStateLoss();
