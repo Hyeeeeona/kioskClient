@@ -6,9 +6,100 @@
     tools:context=".FragmentMenuHome">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/title_home" />
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="@dimen/search_button_width_height"
+                android:layout_height="@dimen/search_button_width_height"
+                android:id="@+id/backHomeBtn"
+                android:layout_margin="15dp"
+                android:background="@drawable/back"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:layout_marginTop="17dp"
+                android:id="@+id/searchText"
+                android:hint="가게이름으로 검색"
+                android:textSize="@dimen/search_text_big_size"
+                android:layout_marginLeft="10dp"
+                android:visibility="visible"
+                android:background="@null"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:layout_marginTop="17dp"
+                android:id="@+id/userSearchText"
+                android:text=""
+                android:layout_marginLeft="20dp"
+                android:visibility="gone"
+                android:textSize="@dimen/search_text_big_size"/>
+
+            <Button
+                android:layout_width="@dimen/search_button_width_height"
+                android:layout_height="@dimen/search_button_width_height"
+                android:id="@+id/searchBtn"
+                android:layout_margin="15dp"
+                android:visibility="visible"
+                android:background="@drawable/search"/>
+
+            <Button
+                android:layout_width="@dimen/search_button_width_height"
+                android:layout_height="@dimen/search_button_width_height"
+                android:id="@+id/deleteBtn"
+                android:layout_margin="15dp"
+                android:visibility="gone"
+                android:background="@drawable/delete_text"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/blank">
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/search_menu_frame">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/search_in_msg"
+                android:id="@+id/searchInMsg"
+                android:textSize="@dimen/search_text_small_size"
+                android:layout_gravity="center"
+                android:visibility="visible"/>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textFilterEnabled="true"
+                android:id="@+id/listItems"
+                android:visibility="gone"
+                android:divider="@null">
+
+            </ListView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/zeroRest_in_msg"
+                android:id="@+id/resultNoRest"
+                android:layout_gravity="center"
+                android:textSize="@dimen/search_text_small_size"
+                android:visibility="gone"/>
+        </FrameLayout>
+    </LinearLayout>
 </FrameLayout>

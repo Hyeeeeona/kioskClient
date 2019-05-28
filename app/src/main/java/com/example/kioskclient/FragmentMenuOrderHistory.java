@@ -13,10 +13,10 @@ import android.widget.ListView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentOrderHistory extends Fragment {
+public class FragmentMenuOrderHistory extends Fragment {
 
 
-    public FragmentOrderHistory() {
+    public FragmentMenuOrderHistory() {
         // Required empty public constructor
     }
 
@@ -25,7 +25,7 @@ public class FragmentOrderHistory extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_order_history, null);
+        View view =  inflater.inflate(R.layout.fragment_menu_order_history, null);
 
         FavoriteListViewAdapter adapter = new FavoriteListViewAdapter() ;
         ListView listview = (ListView) view.findViewById(R.id.listview_order_history) ;

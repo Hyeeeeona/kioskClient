@@ -44,8 +44,8 @@ public class FragmentMenuMyPage extends Fragment {
         view.findViewById(R.id.order_history).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentOrderHistory fragmentOrderHistory = new FragmentOrderHistory();
-                setFragment(fragmentOrderHistory);
+                FragmentMenuOrderHistory fragmentMenuOrderHistory = new FragmentMenuOrderHistory();
+                setFragment(fragmentMenuOrderHistory);
             }
         });
 

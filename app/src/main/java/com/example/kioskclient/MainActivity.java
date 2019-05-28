@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,11 +18,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FragmentManager fragmentManager;
-    private FragmentMenuSearch fragmentMenuSearch;
+    private FragmentMenuHome fragmentMenuHome;
     private FragmentMenuCart fragmentMenuCart;
     private FragmentMenuMyPage fragmentMenuMyPage;
-    private FragmentStoreHome fragmentStoreHome;
-    private FragmentOrderHistory fragmentOrderHistory;
+    private FragmentMenuOrderHistory fragmentMenuOrderHistory;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -36,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    transaction.replace(R.id.linear_layout, fragmentMenuSearch).commitAllowingStateLoss();
+                    transaction.replace(R.id.linear_layout, fragmentMenuHome).commitAllowingStateLoss();
                     return true;
                 case R.id.navigation_order_history:
-                    transaction.replace(R.id.linear_layout, fragmentOrderHistory).commitAllowingStateLoss();
+                    transaction.replace(R.id.linear_layout, fragmentMenuOrderHistory).commitAllowingStateLoss();
                     return true;
                 case R.id.navigation_shopping_cart:
                     transaction.replace(R.id.linear_layout, fragmentMenuCart).commitAllowingStateLoss();
@@ -62,14 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         fragmentManager = getSupportFragmentManager();
-        fragmentMenuSearch = new FragmentMenuSearch();
+        fragmentMenuHome = new FragmentMenuHome();
         fragmentMenuCart = new FragmentMenuCart();
         fragmentMenuMyPage = new FragmentMenuMyPage();
-        fragmentStoreHome = new FragmentStoreHome();
-        fragmentOrderHistory = new FragmentOrderHistory();
+        fragmentMenuOrderHistory = new FragmentMenuOrderHistory();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.linear_layout, fragmentMenuSearch).commitAllowingStateLoss();
+        transaction.replace(R.id.linear_layout, fragmentMenuHome).commitAllowingStateLoss();
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
