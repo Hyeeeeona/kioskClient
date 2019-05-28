@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">kioskClient</string>
     <string name="title_activity__home">Activity_Home</string>
-    <string name="title_home">Home</string>
-    <string name="title_search">Search</string>
-    <string name="title_shopping_cart">Cart</string>
-    <string name="title_my_page">MyPage</string>
+    <string name="title_home">홈</string>
+    <string name="title_order_history">주문내역</string>
+    <string name="title_shopping_cart">장바구니</string>
+    <string name="title_my_page">마이페이지</string>
     <string name="search_in_msg">오늘은 무엇을 먹을까요?</string>
     <string name="zeroRest_in_msg">검색 결과가 없습니다.</string>
     <string name="fragment_mypage_title">마이페이지</string>

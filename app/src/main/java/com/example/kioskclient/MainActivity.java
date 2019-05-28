@@ -18,13 +18,12 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private TextView mTextMessage;
     private FragmentManager fragmentManager;
-    private FragmentMenuHome fragmentMenuHome;
     private FragmentMenuSearch fragmentMenuSearch;
     private FragmentMenuCart fragmentMenuCart;
     private FragmentMenuMyPage fragmentMenuMyPage;
     private FragmentStoreHome fragmentStoreHome;
+    private FragmentOrderHistory fragmentOrderHistory;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -37,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    transaction.replace(R.id.linear_layout, fragmentStoreHome).commitAllowingStateLoss();
-                    return true;
-                case R.id.navigation_search:
                     transaction.replace(R.id.linear_layout, fragmentMenuSearch).commitAllowingStateLoss();
+                    return true;
+                case R.id.navigation_order_history:
+                    transaction.replace(R.id.linear_layout, fragmentOrderHistory).commitAllowingStateLoss();
                     return true;
                 case R.id.navigation_shopping_cart:
                     transaction.replace(R.id.linear_layout, fragmentMenuCart).commitAllowingStateLoss();
@@ -62,16 +61,15 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.message);
         fragmentManager = getSupportFragmentManager();
-        fragmentMenuHome = new FragmentMenuHome();
         fragmentMenuSearch = new FragmentMenuSearch();
         fragmentMenuCart = new FragmentMenuCart();
         fragmentMenuMyPage = new FragmentMenuMyPage();
         fragmentStoreHome = new FragmentStoreHome();
+        fragmentOrderHistory = new FragmentOrderHistory();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.linear_layout, fragmentMenuHome).commitAllowingStateLoss();
+        transaction.replace(R.id.linear_layout, fragmentMenuSearch).commitAllowingStateLoss();
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
