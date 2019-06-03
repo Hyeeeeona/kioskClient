@@ -34,16 +34,36 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    transaction.replace(R.id.linear_layout, fragmentMenuHome).commitAllowingStateLoss();
+                    transaction.replace(R.id.linear_layout,fragmentMenuHome);
+                    /*transaction.show(fragmentMenuHome);
+                    transaction.hide(fragmentMenuCart);
+                    transaction.hide(fragmentMenuMyPage);
+                    transaction.hide(fragmentMenuOrderHistory);*/
+                    transaction.commitAllowingStateLoss();
                     return true;
                 case R.id.navigation_order_history:
-                    transaction.replace(R.id.linear_layout, fragmentMenuOrderHistory).commitAllowingStateLoss();
+                    transaction.replace(R.id.linear_layout,fragmentMenuOrderHistory);
+                    /*transaction.hide(fragmentMenuHome);
+                    transaction.hide(fragmentMenuCart);
+                    transaction.hide(fragmentMenuMyPage);
+                    transaction.show(fragmentMenuOrderHistory);*/
+                    transaction.commitAllowingStateLoss();
                     return true;
                 case R.id.navigation_shopping_cart:
-                    transaction.replace(R.id.linear_layout, fragmentMenuCart).commitAllowingStateLoss();
+                    transaction.replace(R.id.linear_layout,fragmentMenuCart);
+                    /*transaction.hide(fragmentMenuHome);
+                    transaction.show(fragmentMenuCart);
+                    transaction.hide(fragmentMenuMyPage);
+                    transaction.hide(fragmentMenuOrderHistory);*/
+                    transaction.commitAllowingStateLoss();
                     return true;
                 case R.id.navigation_setting:
-                    transaction.replace(R.id.linear_layout, fragmentMenuMyPage).commitAllowingStateLoss();
+                    transaction.replace(R.id.linear_layout,fragmentMenuMyPage);
+                   /* transaction.hide(fragmentMenuHome);
+                    transaction.hide(fragmentMenuCart);
+                    transaction.show(fragmentMenuMyPage);
+                    transaction.hide(fragmentMenuOrderHistory);*/
+                    transaction.commitAllowingStateLoss();
                     return true;
 
             }
@@ -66,7 +86,17 @@ public class MainActivity extends AppCompatActivity {
         fragmentMenuOrderHistory = new FragmentMenuOrderHistory();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.linear_layout, fragmentMenuHome).commitAllowingStateLoss();
+
+        /*transaction.add(R.id.linear_layout, fragmentMenuHome);
+        transaction.add(R.id.linear_layout, fragmentMenuCart);
+        transaction.add(R.id.linear_layout, fragmentMenuMyPage);
+        transaction.add(R.id.linear_layout, fragmentMenuOrderHistory);
+        transaction.hide(fragmentMenuCart);
+        transaction.hide(fragmentMenuMyPage);
+        transaction.hide(fragmentMenuOrderHistory);*/
+
+        transaction.replace(R.id.linear_layout,fragmentMenuHome);
+        transaction.commitAllowingStateLoss();
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 

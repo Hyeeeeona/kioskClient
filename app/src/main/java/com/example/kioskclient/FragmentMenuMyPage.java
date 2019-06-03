@@ -64,7 +64,7 @@ public class FragmentMenuMyPage extends Fragment {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         if (!child.isAdded()) {
-            transaction.replace(R.id.linear_layout, child);
+            transaction.add(R.id.linear_layout, child);
             transaction.addToBackStack(null);
             transaction.commit();
         }
