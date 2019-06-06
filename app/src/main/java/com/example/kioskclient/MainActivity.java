@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -98,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.linear_layout,fragmentMenuHome);
         transaction.commitAllowingStateLoss();
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
     }
 
     @Override

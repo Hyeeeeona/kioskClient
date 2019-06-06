@@ -1,6 +1,7 @@
 package com.example.kioskclient;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +32,9 @@ public class FragmentMenuCart extends Fragment {
     public FragmentMenuCart() {
         // Required empty public constructor
     }
+
+    private CartListViewAdapter adapter;
+    private TextView storeName;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,21 +51,21 @@ public class FragmentMenuCart extends Fragment {
 
 
         String Jsonstr = JsonExample.makeJsonStringCartDataExample();
-
         Log.d("FragmentCart",Jsonstr);
 
         ListView listview = (ListView) view.findViewById(R.id.listview_cart) ;
-        TextView storeName = (TextView) view.findViewById(R.id.menu_cart_store_name);
+        storeName = (TextView) view.findViewById(R.id.menu_cart_store_name);
         Button btnpayment = (Button)footer.findViewById(R.id.btn_payment);
         TextView total = (TextView)footer.findViewById(R.id.cart_list_total);
 
         // listView에 header, footer 추가.
         listview.addFooterView(footer) ;
-        CartListViewAdapter adapter = new CartListViewAdapter() ;
+        adapter = new CartListViewAdapter() ;
         listview.setAdapter(adapter) ;
 
         try {
-            JSONObject jsonObject = new JSONObject(Jsonstr);
+            //JSONObject jsonObject = new JSONObject(Jsonstr);
+            JSONObject jsonObject = CartDataFileIO.readCartDataJson(getContext());
             storeName.setText(jsonObject.getString("StoreName"));
             JSONArray jsonArray =  jsonObject.getJSONArray("MenuData");
 
@@ -87,6 +94,9 @@ public class FragmentMenuCart extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        JSONArray jsonArray = adapter.getListData();
+        JSONObject jsonObject = CartDataFileIO.makeCartDataJson(storeName.getText().toString(),jsonArray);
+        CartDataFileIO.saveCartDataJson(getContext(),jsonObject);
         Log.d("FragmentCart","onDestroyView");
     }
 }
