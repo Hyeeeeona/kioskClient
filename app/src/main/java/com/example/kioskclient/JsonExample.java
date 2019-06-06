@@ -1,6 +1,5 @@
 package com.example.kioskclient;
 
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
