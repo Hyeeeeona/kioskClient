@@ -40,6 +40,7 @@ public class OrderHistoryListViewAdapter extends BaseAdapter {
         ImageView iconImageView = (ImageView) convertView.findViewById(R.id.order_history_item_imageView) ;
         TextView storeNameTextView = (TextView) convertView.findViewById(R.id.order_history_item_store_name) ;
         TextView menuTextView = (TextView) convertView.findViewById(R.id.order_history_item_menu) ;
+        TextView dateTextView = (TextView) convertView.findViewById(R.id.order_history_item_dateText);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         OrderHistoryListViewItem listViewItem = orderHistoryListViewItems.get(position);
@@ -48,6 +49,7 @@ public class OrderHistoryListViewAdapter extends BaseAdapter {
         iconImageView.setImageDrawable(listViewItem.getIcon());
         storeNameTextView.setText(listViewItem.getStoreName());
         menuTextView.setText(listViewItem.getMenuStr());
+        dateTextView.setText(listViewItem.getDate());
 
         return convertView;
     }
@@ -65,12 +67,13 @@ public class OrderHistoryListViewAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(Drawable icon, String storeName, String menuStr) {
+    public void addItem(Drawable icon, String storeName, String menuStr, String date) {
         OrderHistoryListViewItem item = new OrderHistoryListViewItem();
 
         item.setIcon(icon);
         item.setStoreName(storeName);
         item.setMenu(menuStr);
+        item.setDate(date);
 
         orderHistoryListViewItems.add(item);
     }

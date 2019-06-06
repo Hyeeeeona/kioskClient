@@ -6,7 +6,11 @@ public class OrderHistoryListViewItem {
     private Drawable iconDrawable ;
     private String storeName ;
     private String menuStr ;
+    private String date;
 
+    public void setDate(String str) {
+        this.date = str;
+    }
     public void setIcon(Drawable icon) {
         iconDrawable = icon ;
     }
@@ -17,6 +21,9 @@ public class OrderHistoryListViewItem {
         menuStr = menu ;
     }
 
+    public String getDate() {
+        return this.date;
+    }
     public Drawable getIcon() {
         return this.iconDrawable ;
     }
