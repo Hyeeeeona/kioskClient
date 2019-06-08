@@ -57,6 +57,13 @@ public class FragmentMenuMyPage extends Fragment {
                 getActivity().finish();
             }
         });
+        view.findViewById(R.id.testpage_btn1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentStoreHome fragmentStoreHome= new FragmentStoreHome();
+                setFragment(fragmentStoreHome);
+            }
+        });
         return view;
     }
 
@@ -64,7 +71,7 @@ public class FragmentMenuMyPage extends Fragment {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         if (!child.isAdded()) {
-            transaction.add(R.id.linear_layout, child);
+            transaction.replace(R.id.linear_layout, child);
             transaction.addToBackStack(null);
             transaction.commit();
         }
