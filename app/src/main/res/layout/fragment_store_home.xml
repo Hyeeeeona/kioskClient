@@ -17,6 +17,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"/>
 
+
     <View
         android:id="@+id/divider1"
         android:layout_width="match_parent"
@@ -42,118 +43,13 @@
         android:background="?android:attr/listDivider"/>
 
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/StoreHomeListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:clickable="true">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_menuName1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:text="아메리카노"
-            android:textSize="20dp"
-            />
+    </ListView>
 
-        <TextView
-            android:id="@+id/tv_menuTemp1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:text="Hot Only"
-            android:textSize="15dp"
-            />
-        <TextView
-            android:id="@+id/tv_menuSize_1_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="* S : 5000원"
-            android:textSize="15dp"
-            />
-
-        <TextView
-            android:id="@+id/tv_menuSize_1_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="* M : 6000원"
-            android:textSize="15dp"
-            />
-        <TextView
-            android:id="@+id/tv_menuSize_1-3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="* L : 7000원"
-            android:textSize="15dp"
-            />
-
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:clickable="true">
-
-
-        <TextView
-            android:id="@+id/tv_menuName2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:text="카페라떼"
-            android:textSize="20dp"
-            />
-
-        <TextView
-            android:id="@+id/tv_menuTemp2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:text="Hot or Ice"
-            android:textSize="15dp"
-            />
-        <TextView
-            android:id="@+id/tv_menuSize_2_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="* S : 5000원"
-            android:textSize="15dp"
-            />
-
-        <TextView
-            android:id="@+id/tv_menuSize_2_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="* M : 6000원"
-            android:textSize="15dp"
-            />
-        <TextView
-            android:id="@+id/tv_menuSize_2-3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="* L : 7000원"
-            android:textSize="15dp"
-            />
-    </LinearLayout>
 
 
 </LinearLayout>
