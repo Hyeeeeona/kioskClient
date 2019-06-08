@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:orientation="vertical"
-        android:clickable="true">
+        android:focusable="false">
 
         <TextView
             android:id="@+id/tv_menuName"

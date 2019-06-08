@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,7 +58,7 @@ public class StoreHomeListViewAdapter extends BaseAdapter {
 
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        StoreHomeListViewItem listViewItem = storeHomeListViewItems.get(position);
+        final StoreHomeListViewItem listViewItem = storeHomeListViewItems.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         menuNameView.setText(listViewItem.getMenuName());
@@ -79,7 +80,7 @@ public class StoreHomeListViewAdapter extends BaseAdapter {
 
     // 지정한 위치(position)에 있는 데이터 리턴 : 필수 구현
     @Override
-    public Object getItem(int position) {
+    public StoreHomeListViewItem getItem(int position) {
         return storeHomeListViewItems.get(position) ;
     }
 

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FragmentStoreMenu">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".StoreMenu">
 
 
     <TextView
@@ -30,7 +29,6 @@
         android:id="@+id/tv_menuName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="아메리카노"
         android:textSize="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
@@ -48,11 +46,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:clickable="true">
+        android:orientation="vertical">
+
+
 
         <TextView
-            android:id="@+id/tv_menuName1"
+            android:id="@+id/tv_menuTemp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -68,27 +67,60 @@
             android:layout_height="match_parent">
 
             <RadioButton
-                android:id="@+id/radioButton1"
+                android:id="@+id/RBhot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="* S : 5000원" />
+                android:text=" HOT" />
 
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/RBiced"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="* M : 6000원" />
+                android:text=" ICED" />
+
+
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv_menuStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="사이즈"
+            android:textSize="20dp"
+            />
+
+
+
+        <RadioGroup
+            android:id="@+id/RG"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/RBsmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp" />
 
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/RBmid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="* L : 7000원" />
+                android:layout_marginLeft="20dp" />
+
+
+            <RadioButton
+                android:id="@+id/RBlarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp" />
 
         </RadioGroup>
     </LinearLayout>
@@ -120,35 +152,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:clickable="true">
+            android:orientation="horizontal" >
 
 
-            <TextView
-                android:id="@+id/tv_menuMinus"
+            <Button
+                android:id="@+id/store_menu_count_down"
+                style="@android:style/Widget.Material.Light.Button.Borderless.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="-"
-                android:textSize="20dp"
-                />
-
+                android:text="-" />
             <TextView
-                android:id="@+id/tv_menuChange"
+                android:id="@+id/store_menu_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="1"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/tv_menuPlus"
+                android:inputType="number"
+                android:text="1"/>
+            <Button
+                android:id="@+id/store_menu_count_up"
+                style="@android:style/Widget.Material.Light.Button.Borderless.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="+"
-                android:textSize="20dp"
-                />
+                android:text="+" />
 
         </LinearLayout>
 
@@ -166,8 +190,7 @@
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1개 담기         5000원" />
+            android:layout_height="wrap_content"/>
 
 
 
@@ -175,5 +198,4 @@
 
 
     </LinearLayout>
-
 </LinearLayout>
