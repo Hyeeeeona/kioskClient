@@ -17,52 +17,53 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/backHomeBtn"
                 android:layout_width="@dimen/search_button_width_height"
                 android:layout_height="@dimen/search_button_width_height"
-                android:id="@+id/backHomeBtn"
                 android:layout_margin="15dp"
-                android:background="@drawable/back"/>
+                android:background="@drawable/back" />
 
             <EditText
+                android:id="@+id/searchText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="17dp"
-                android:id="@+id/searchText"
+                android:layout_weight="0.7"
+                android:background="@null"
                 android:hint="가게이름으로 검색"
                 android:textSize="@dimen/search_text_big_size"
-                android:layout_marginLeft="10dp"
-                android:visibility="visible"
-                android:background="@null"/>
+                android:visibility="visible" />
 
             <TextView
+                android:id="@+id/userSearchText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:layout_marginTop="17dp"
-                android:id="@+id/userSearchText"
-                android:text=""
                 android:layout_marginLeft="20dp"
-                android:visibility="gone"
-                android:textSize="@dimen/search_text_big_size"/>
+                android:layout_marginTop="17dp"
+                android:layout_weight="0.7"
+                android:text=""
+                android:textSize="@dimen/search_text_big_size"
+                android:visibility="gone" />
 
             <Button
-                android:layout_width="@dimen/search_button_width_height"
-                android:layout_height="@dimen/search_button_width_height"
                 android:id="@+id/searchBtn"
-                android:layout_margin="15dp"
-                android:visibility="visible"
-                android:background="@drawable/search"/>
-
-            <Button
                 android:layout_width="@dimen/search_button_width_height"
                 android:layout_height="@dimen/search_button_width_height"
-                android:id="@+id/deleteBtn"
                 android:layout_margin="15dp"
-                android:visibility="gone"
-                android:background="@drawable/delete_text"/>
+                android:background="@drawable/search"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/deleteBtn"
+                android:layout_width="@dimen/search_button_width_height"
+                android:layout_height="@dimen/search_button_width_height"
+                android:layout_margin="15dp"
+                android:background="@drawable/delete_text"
+                android:visibility="gone" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="10dp"
@@ -70,36 +71,64 @@
 
         </LinearLayout>
 
-        <FrameLayout
+        <LinearLayout
+            android:id="@+id/search_menu_frame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/search_menu_frame">
+            android:layout_height="0dp"
+            android:layout_weight="0.9"
+            android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/search_in_msg"
-                android:id="@+id/searchInMsg"
-                android:textSize="@dimen/search_text_small_size"
-                android:layout_gravity="center"
-                android:visibility="visible"/>
-
+                android:layout_height="wrap_content"
+                android:id="@+id/listText"
+                android:text="즐겨찾기 목록"/>
             <ListView
+                android:id="@+id/listItems"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:divider="@null"
                 android:textFilterEnabled="true"
-                android:id="@+id/listItems"
-                android:visibility="gone"
-                android:divider="@null">
-
+                android:visibility="gone">
+            </ListView>
+            <ListView
+                android:id="@+id/favoriteItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:textFilterEnabled="true"
+                android:visibility="visible">
             </ListView>
             <TextView
+                android:id="@+id/resultNoRest"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/zeroRest_in_msg"
-                android:id="@+id/resultNoRest"
                 android:layout_gravity="center"
+                android:text="@string/zeroRest_in_msg"
                 android:textSize="@dimen/search_text_small_size"
-                android:visibility="gone"/>
-        </FrameLayout>
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/search_button_width_height"
+            android:orientation="horizontal"
+            android:layout_gravity="center|bottom">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center"
+                android:id="@+id/now_location_text"
+                android:text="주소 설정 필요" />
+
+            <ImageButton
+                android:layout_width="@dimen/search_now_location_width_height"
+                android:layout_height="@dimen/search_now_location_width_height"
+                android:layout_gravity="center"
+                android:id="@+id/now_location"
+                android:background="@drawable/now_location" />
+        </LinearLayout>
+
     </LinearLayout>
 </FrameLayout>
