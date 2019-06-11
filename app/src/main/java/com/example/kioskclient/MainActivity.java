@@ -21,9 +21,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.skt.Tmap.TMapView;
-
-import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -115,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.commitAllowingStateLoss();
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        TMapView tMapView = new TMapView(this);
-        tMapView.setSKTMapApiKey("5f61e3c4-b3e2-4b87-9d43-26fab3b5e095");
     }
 
     @Override

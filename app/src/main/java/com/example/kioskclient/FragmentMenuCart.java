@@ -1,8 +1,8 @@
 package com.example.kioskclient;
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +33,7 @@ public class FragmentMenuCart extends Fragment {
 
     private CartListViewAdapter adapter;
     private TextView storeName;
+    private String storeNameStr = "";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +57,7 @@ public class FragmentMenuCart extends Fragment {
         Button btnpayment = (Button)footer.findViewById(R.id.btn_payment);
         TextView total = (TextView)footer.findViewById(R.id.cart_list_total);
 
+
         // listView에 header, footer 추가.
         listview.addFooterView(footer) ;
         adapter = new CartListViewAdapter() ;
@@ -65,6 +66,7 @@ public class FragmentMenuCart extends Fragment {
         try {
             //JSONObject jsonObject = new JSONObject(Jsonstr);
             JSONObject jsonObject = CartDataFileIO.readCartDataJson(getContext());
+            storeNameStr = jsonObject.getString("StoreName");
             storeName.setText(jsonObject.getString("StoreName"));
             JSONArray jsonArray =  jsonObject.getJSONArray("MenuData");
 
@@ -84,38 +86,14 @@ public class FragmentMenuCart extends Fragment {
         btnpayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 다이얼로그 바디
-                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
-                // 메세지
 
-                int data = adapter.getTotalCost();
+                Intent intent = new Intent(getContext(), PaymentActivity.class);
+                intent.putExtra("StoreName",storeNameStr);
+                intent.putExtra("menuCount",adapter.getCount());
+                intent.putExtra("FirstMenu",adapter.getItem(0).getMenuName());
+                intent.putExtra("TotalCost",adapter.getTotalCost());
+                startActivity(intent);
 
-                if (data <= 0){
-                    Toast.makeText(getActivity(), "결제할 내역이 없습니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                alert_confirm.setMessage(""+data+"원 결제하시겠습니까?");
-                // 확인 버튼 리스너
-                alert_confirm.setPositiveButton("확인", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //결제 후 추가
-
-                        Toast.makeText(getActivity(), "결제 되었습니다. 주문내역을 확인해 주세요.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-                alert_confirm.setNegativeButton("취소", null);
-                // 다이얼로그 생성
-                AlertDialog alert = alert_confirm.create();
-
-                // 아이콘
-                //alert.setIcon(R.drawable.ic_launcher);
-                // 다이얼로그 타이틀
-                alert.setTitle("결제");
-                // 다이얼로그 보기
-                alert.show();
 
             }
         });
