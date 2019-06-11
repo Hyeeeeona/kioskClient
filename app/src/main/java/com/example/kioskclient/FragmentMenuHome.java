@@ -141,7 +141,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
             try {
                 double latitude = userLocationUpdate.getLatitude();
                 double longitude = userLocationUpdate.getLongitude();
-                String address = userLocationUpdate.getCurrentAddress(35.228545, 128.889352);
+                String address = userLocationUpdate.getCurrentAddress(latitude, longitude);
                 Toast.makeText(mContext,"현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
                 nowLocation.setText(address);
             } catch (IOException e) {
