@@ -25,7 +25,7 @@ public class ApplicationController extends Application {
     public void buildNetworkService(String ip, int port) {
         synchronized (ApplicationController.class) {
             if (networkService == null) {
-                baseUrl = String.format("http://%s:%d/", ip, port);
+                baseUrl = String.format("https://%s:%d/", ip, port);
                 Log.d(TAG, baseUrl);
 
                 Retrofit retrofit = new Retrofit.Builder()
@@ -41,7 +41,7 @@ public class ApplicationController extends Application {
     public void buildNetworkService(String ip) {
         synchronized (ApplicationController.class) {
             if (networkService == null) {
-                baseUrl = String.format("http://%s/", ip);
+                baseUrl = String.format("https://%s/", ip);
 
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(baseUrl)

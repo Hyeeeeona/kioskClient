@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -23,43 +26,42 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-
         textView = findViewById(R.id.testTextView);
         btnGet = findViewById(R.id.testbtn_get);
         ApplicationController application = ApplicationController.getInstance();
-        application.buildNetworkService("10.0.2.2", 8000);
+        application.buildNetworkService( "076150d9.ngrok.io");
         networkService = ApplicationController.getInstance().getNetworkService();
-/*
+
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Call<List<ShopInfo>> shopInfoCall = networkService.get_shopinfo();
-                shopInfoCall.enqueue(new Callback<List<ShopInfo>>() {
+                Call<List<ShopInfo>> getCall = networkService.get_shopinfo();
+                getCall.enqueue(new Callback<List<ShopInfo>>() {
                     @Override
-                    public void onResponse(Call<List<ShopInfo>> call, Response<List<ShopInfo>> response) {
-                        if(response.isSuccessful()){
-                            List<ShopInfo> shopInfoList = response.body();
-
-                            String shopinfo_txt = "";
-                            for(ShopInfo shopInfo: shopInfoList){
-                                shopinfo_txt += "매장이름: "+ shopInfo.getShopName() + "\n";
-                                shopinfo_txt += "매장전화번호: "+ shopInfo.getShopTel() + "\n";
-
-                            }
-                            textView.setText(shopinfo_txt);
-                        }else {
-                            int StatusCode = response.code();
-                            Log.i(ApplicationController.TAG,"Status Code :"+StatusCode);
-                        }
+                    public void onFailure(Call<List<ShopInfo>> call, Throwable t) {
+                        Log.d("debugging", "Fail Message : " + t.getMessage());
                     }
 
                     @Override
-                    public void onFailure(Call<List<ShopInfo>> call, Throwable t) {
-                        Log.i(ApplicationController.TAG,"Fail Message :" + t.getMessage());
+                    public void onResponse(Call<List<ShopInfo>> call, Response<List<ShopInfo>> response) {
+                        Boolean isExist = false;
+                        if (response.isSuccessful()) {
+                            List<ShopInfo> shopinfoList = response.body();
+                            for (ShopInfo shopinfo : shopinfoList ) {
+                                    Log.d("debugging", "찾았당");
+                                    JSONObject jsonObject = ShopInfoDataFileIO.makeShopInfoDataJson(shopinfo);
+                                    Log.d("Tag",jsonObject.toString());
+                                    ShopInfoDataFileIO.saveShopInfoDataJson(getApplicationContext(), jsonObject);
+                                    isExist = true;
+                                    break;
+                            }
+                        } else {
+                            Log.d("debugging", "Error Message : " + response.errorBody());
+                        }
                     }
                 });
             }
         });
-*/
+
     }
 }

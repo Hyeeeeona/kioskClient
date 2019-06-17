@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.linear_layout,fragmentMenuHome);
         transaction.commitAllowingStateLoss();
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
     }
 
     @Override
