@@ -41,11 +41,11 @@ public class FragmentMenuMyPage extends Fragment {
             }
         });
 
-        view.findViewById(R.id.order_history).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.card_data).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentMenuOrderHistory fragmentMenuOrderHistory = new FragmentMenuOrderHistory();
-                setFragment(fragmentMenuOrderHistory);
+                Intent intent = new Intent(getContext(), CardDataActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -76,5 +76,4 @@ public class FragmentMenuMyPage extends Fragment {
             transaction.commit();
         }
     }
-
 }

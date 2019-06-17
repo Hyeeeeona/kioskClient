@@ -34,6 +34,8 @@ public class FragmentMenuCart extends Fragment {
     private CartListViewAdapter adapter;
     private TextView storeName;
     private String storeNameStr = "";
+    private Button btnpayment;
+    private TextView carttotal;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,20 +48,17 @@ public class FragmentMenuCart extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_menu_cart, null);
-        View footer = getLayoutInflater().inflate(R.layout.cart_list_footer, null, false) ;
-
 
         String Jsonstr = JsonExample.makeJsonStringCartDataExample();
         Log.d("FragmentCart",Jsonstr);
 
         ListView listview = (ListView) view.findViewById(R.id.listview_cart) ;
         storeName = (TextView) view.findViewById(R.id.menu_cart_store_name);
-        Button btnpayment = (Button)footer.findViewById(R.id.btn_payment);
-        TextView total = (TextView)footer.findViewById(R.id.cart_list_total);
+        btnpayment = (Button) view.findViewById(R.id.btn_payment);
+        carttotal = view.findViewById(R.id.cart_list_total);
 
 
         // listView에 header, footer 추가.
-        listview.addFooterView(footer) ;
         adapter = new CartListViewAdapter() ;
         listview.setAdapter(adapter) ;
 
@@ -83,6 +82,7 @@ public class FragmentMenuCart extends Fragment {
             e.printStackTrace();
         }
 
+        carttotal.setText(""+adapter.getTotalCost() + "원");
         btnpayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

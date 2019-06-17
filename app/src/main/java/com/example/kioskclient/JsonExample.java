@@ -7,6 +7,41 @@ import org.json.JSONObject;
 
 public class JsonExample {
 
+    public static String makeJsonStringCardDataExample(){
+        String result;
+        JSONObject cardDataJsonObject = new JSONObject();
+        JSONArray cardDataJsonArray = new JSONArray();
+
+        try{
+            cardDataJsonObject.put("cardCompany","BC카드");
+            cardDataJsonObject.put("cardNumber","1234-5678-9012-3456");
+            cardDataJsonObject.put("cardNickName","카드1");
+
+            cardDataJsonArray.put(cardDataJsonObject);
+
+            cardDataJsonObject.put("cardCompany","신한카드");
+            cardDataJsonObject.put("cardNumber","1234-5678-9000-3456");
+            cardDataJsonObject.put("cardNickName","카드2");
+
+            cardDataJsonArray.put(cardDataJsonObject);
+
+            cardDataJsonObject.put("cardCompany","BC카드");
+            cardDataJsonObject.put("cardNumber","1200-5678-9012-3456");
+            cardDataJsonObject.put("cardNickName","카드3");
+
+            cardDataJsonArray.put(cardDataJsonObject);
+
+            cardDataJsonObject.put("cardCompany","BC카드");
+            cardDataJsonObject.put("cardNumber","1234-5600-9012-3456");
+            cardDataJsonObject.put("cardNickName","카드4");
+
+            cardDataJsonArray.put(cardDataJsonObject);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        result = cardDataJsonArray.toString();
+        return result;
+    }
     public static String makeJsonStringCartDataExample(){
         String result;
 

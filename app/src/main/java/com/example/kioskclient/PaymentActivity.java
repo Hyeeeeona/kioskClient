@@ -27,7 +27,6 @@ public class PaymentActivity extends AppCompatActivity {
         totalCost = findViewById(R.id.payment_cost);
         payBtn = findViewById(R.id.payment_button);
 
-
         final Intent intent = getIntent();
         storeName.setText(intent.getStringExtra("StoreName"));
         menu.setText(intent.getStringExtra("FirstMenu")+"외 " + intent.getIntExtra("menuCount",0)+"개");

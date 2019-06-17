@@ -3,6 +3,7 @@
     <string name="title_activity__home">Activity_Home</string>
     <string name="title_home">홈</string>
     <string name="title_order_history">주문내역</string>
+    <string name="title_card_data">카드정보</string>
     <string name="title_shopping_cart">장바구니</string>
     <string name="title_payment">결제페이지</string>
     <string name="title_my_page">마이페이지</string>
@@ -10,7 +11,6 @@
     <string name="zeroRest_in_msg">검색 결과가 없습니다.</string>
     <string name="fragment_mypage_title">마이페이지</string>
     <string name="fragment_mypage_logout">로그아웃</string>
-    <string name="fragment_mypage_order_history">주문내역</string>
     <string name="fragment_mypage_favorite">즐겨찾기</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
