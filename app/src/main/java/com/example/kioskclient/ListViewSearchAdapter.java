@@ -56,7 +56,8 @@ public class ListViewSearchAdapter extends BaseAdapter implements Filterable {
         ListViewSearchItem item = filteredItemList.get(position);
         ImageView restImage = (ImageView) convertView.findViewById(R.id.restImage);
         TextView restName = (TextView) convertView.findViewById(R.id.restName);
-        TextView restScore = (TextView) convertView.findViewById(R.id.restScore);
+        //TextView restScore = (TextView) convertView.findViewById(R.id.restScore);
+        TextView restDistance = (TextView) convertView.findViewById(R.id.restDistance);
         TextView restMain = (TextView) convertView.findViewById(R.id.restMain);
 
         //restImage.setImageDrawable(item.getRestIcon());
@@ -68,17 +69,19 @@ public class ListViewSearchAdapter extends BaseAdapter implements Filterable {
                 .override(75,75)
                 .into(restImage);
         restName.setText(item.getRestName());
-        restScore.setText(String.valueOf(item.getRestScore()));
+        // restScore.setText(String.valueOf(item.getRestScore()));
+        restDistance.setText(String.valueOf(item.getRestDistance()));
         restMain.setText(item.getRestMain());
 
         return convertView;
     }
 
-    public void addItem(String name, Number score, Drawable icon, String main) {
+    public void addItem(String name, Number score, Number distance, Drawable icon, String main) {
         ListViewSearchItem item = new ListViewSearchItem();
 
         item.setRestName(name);
-        item.setRestScore(score);
+        // item.setRestScore(score);
+        item.setRestDistance(distance);
         item.setRestMain(main);
         item.setRestIcon(icon);
 
