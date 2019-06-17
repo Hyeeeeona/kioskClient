@@ -23,15 +23,16 @@ public class CardDataActivity extends AppCompatActivity {
             //JSONObject jsonObject = new JSONObject(Jsonstr);
             JSONArray jsonArray = CardDataFileIO.readCardDataJson(this);
             for(int i =0 ; i< jsonArray.length();i++){
-                JSONObject menu = jsonArray.getJSONObject(i);
-                String cardCompany = menu.getString("cardCompany");
-                String cardNumber = menu.getString("cardNumber");
-                String cardNickName = menu.getString("cardNickName");
+                JSONObject card = jsonArray.getJSONObject(i);
+                String cardCompany = card.getString("cardCompany");
+                String cardNumber = card.getString("cardNumber");
+                String cardNickName = card.getString("cardNickName");
 
                 adapter.addItem(cardNickName,cardCompany,cardNumber) ;
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
     }
 }

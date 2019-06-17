@@ -64,6 +64,13 @@ public class FragmentMenuMyPage extends Fragment {
                 setFragment(fragmentStoreHome);
             }
         });
+        view.findViewById(R.id.testpage_btn2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), TestActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
