@@ -5,18 +5,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +29,7 @@ import java.io.IOException;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentMenuHome extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class FragmentMenuHome extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AbsListView.OnScrollListener {
 
     Button searchBtn, backHomeBtn, deleteBtn;
     ImageButton locationBtn;
@@ -38,6 +42,11 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
 
     private UserLocationUpdate userLocationUpdate;
     private Context mContext;
+    private boolean lastItemVisibleFlag = false;
+    private int page = 0;
+    private final int OFFSET = 5;
+    private ProgressBar progressBar;
+    private boolean mLockListView = false;
 
     public FragmentMenuHome() {
         // Required empty public constructor
@@ -61,6 +70,8 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         listText = (TextView) view.findViewById(R.id.listText);
         locationBtn = (ImageButton) view.findViewById(R.id.now_location);
         nowLocation = (TextView) view.findViewById(R.id.now_location_text);
+        progressBar = (ProgressBar)view.findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.GONE);
 
 
         if (!((MainActivity)mContext).checkLocationServicesStatus()) {
@@ -76,14 +87,12 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
 
         favoriteListViewAdapter = new FavoriteListViewAdapter();
         favoriteItems.setAdapter(favoriteListViewAdapter);
-
-        for(int i = 0; i < 10; i++){
-            adapter.addItem("example XX점", (i+1.0), getResources().getDrawable(R.drawable.star_score), "garlic, fried chicken");
-            adapter.addItem("test YY점", (i+1.0), getResources().getDrawable(R.drawable.star_score), "pizza, potato");
-            favoriteListViewAdapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
-                    "매장"+ i, "아메리카노" +i);
-        }
         searchText.setText("");
+
+        for(int i = 0; i < 10; i++) {
+            favoriteListViewAdapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
+                    "매장" + i, "아메리카노" + i);
+        }
 
         backHomeBtn.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
@@ -114,6 +123,9 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
             searchText.setText("");
         } else if(v.getId() == R.id.searchBtn){
             // 검색 버튼 클릭 시
+            listItems.setOnScrollListener(this);
+            getItem();
+
             backHomeBtn.setVisibility(View.GONE);
             userSearchText.setVisibility(View.VISIBLE);
             searchText.setVisibility(View.GONE);
@@ -127,6 +139,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
                 listItems.clearTextFilter();
 
             userSearchText.setText(searchText.getText().toString() + "\t\t" + adapter.getCount() + "개");
+
             listText.setText("결과 목록");
 
             if(adapter.getCount() > 0) {
@@ -155,22 +168,54 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         //리스트 클릭 시 페이지 이동 -> 각 store로 이동할 수 있도록 작업 필요 / 현재는 fragmentstorehome 페이지가 출력되도로 작업해둠
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         FragmentStoreHome fragmentStoreHome = new FragmentStoreHome();
-        /* 현재 위치를 기준으로 해당 가게와 거리 계산 / 직선 & 각도를 기준으로 거리 계산
-        geoPoint = userLocationUpdate.findGeoPoint("인천 연수구 아카데미로 119");
-
-        Location start = new Location("point A");
-        start.setLatitude(35.228545);
-        start.setLongitude(128.889352);
-        Location end = new Location("point B");
-        end.setLatitude(geoPoint.targetLatitude);
-        end.setLongitude(geoPoint.targetLongitude);
-
-        float distant = start.distanceTo(end);
-        Toast.makeText(mContext, "distant = " + distant, Toast.LENGTH_LONG).show();
-        */
-        transaction.replace(R.id.linear_layout, fragmentStoreHome);
+        transaction.replace(R.id.linear_layout, fragmentStoreHome.newInstance(position));
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastItemVisibleFlag && mLockListView == false){
+            progressBar.setVisibility(View.VISIBLE);
+            getItem();
+        }
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        lastItemVisibleFlag = (totalItemCount > 0) && (firstVisibleItem + visibleItemCount >= totalItemCount);
+    }
+
+    private void getItem(){
+        mLockListView = true;
+
+        for(int i = 0; i < 5; i++){
+            /* 현재 위치를 기준으로 해당 가게와 거리 계산 / 직선 & 각도를 기준으로 거리 계산 */
+            geoPoint = userLocationUpdate.findGeoPoint("인천 연수구 아카데미로 119");
+
+            Location start = new Location("point A");
+            start.setLatitude(35.228545);
+            start.setLongitude(128.889352);
+            Location end = new Location("point B");
+            end.setLatitude(geoPoint.targetLatitude);
+            end.setLongitude(geoPoint.targetLongitude);
+
+            float distant = start.distanceTo(end);
+            Toast.makeText(mContext, "distant = " + distant, Toast.LENGTH_LONG).show();
+
+            adapter.addItem("example"+(page*OFFSET) + i + "점", (i+1.0), distant, getResources().getDrawable(R.drawable.star_score), "garlic, fried chicken");
+            adapter.addItem("test" +(page*OFFSET) + i+ "점", (i+1.0), distant, getResources().getDrawable(R.drawable.star_score), "pizza, potato");
+        }
+
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run(){
+                page++;
+                adapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.GONE);
+                mLockListView = false;
+            }
+        }, 1000);
     }
 
 }

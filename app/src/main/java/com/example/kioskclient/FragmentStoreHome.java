@@ -21,9 +21,14 @@ public class FragmentStoreHome extends Fragment {
     public FragmentStoreHome() {
         // Required empty public constructor
     }
-
+    public static FragmentStoreHome newInstance(int shop_id){
+        FragmentStoreHome fragment = new FragmentStoreHome();
+        Bundle args = new Bundle();
+        args.putInt("shop_id", shop_id);
+        fragment.setArguments(args);
+        return fragment;
+    }
     private StoreHomeListViewAdapter adapter;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +37,14 @@ public class FragmentStoreHome extends Fragment {
         View view = inflater.inflate(R.layout.fragment_store_home, null);
 
         ListView listview = (ListView) view.findViewById(R.id.StoreHomeListView);
+
+        Bundle args = getArguments();
+        if(args != null){
+            Integer shop_id = args.getInt("shop_id");
+            Toast.makeText(getContext(), "shop_id - "+ shop_id, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getContext(), "shop_id - null", Toast.LENGTH_LONG).show();
+        }
 
         adapter = new StoreHomeListViewAdapter();
         listview.setAdapter(adapter);
