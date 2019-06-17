@@ -14,6 +14,7 @@ import org.w3c.dom.Text;
 
 public class StoreMenu extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
+    private TextView StoreName;
     private TextView MenuName;
     private TextView menuCountView;
     private Button btnMenuCost;
@@ -36,6 +37,8 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_menu);
+
+        StoreName = (TextView)findViewById(R.id.tv_storeName);
 
         menuCountView = (TextView) findViewById(R.id.store_menu_count);
         btnMenuCost = (Button) findViewById(R.id.button);
@@ -98,6 +101,8 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
             if(count > 0){
                 menuCountView.setText(Integer.toString(count));
                 btnMenuCost.setText(Integer.toString(count) + "개 담기       " + (count * cost) +"원");
+            } else {
+                count = 1;
             }
         }
     }

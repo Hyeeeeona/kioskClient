@@ -12,10 +12,10 @@
         android:id="@+id/tv_storeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="별다방"
-        android:textSize="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:text="가게이름"
+        android:textSize="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="20dp" />
 
 
@@ -29,10 +29,11 @@
         android:id="@+id/tv_menuName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
+        android:text="메뉴이름"
         />
 
 
