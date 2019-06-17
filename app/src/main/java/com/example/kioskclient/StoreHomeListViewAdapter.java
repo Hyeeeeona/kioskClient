@@ -20,11 +20,13 @@ public class StoreHomeListViewAdapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<StoreHomeListViewItem> storeHomeListViewItems = new ArrayList<StoreHomeListViewItem>() ;
 
+
     private TextView menuNameView;
     private TextView menuOpitonTempView;
     private TextView menuCost_S_View;
     private TextView menuCost_M_View;
     private TextView menuCost_L_View;
+
 
 
 
