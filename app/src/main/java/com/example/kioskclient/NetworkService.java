@@ -24,6 +24,8 @@ public interface NetworkService {
     @GET("/api/versions/{pk}/")
     Call<Version> get_pk_version(@Path("pk") int pk);
 */
+
+    //ShopInfo
     @POST("/mobilekiosk/shopinfo/")
     Call<ShopInfo> post_shopinfo(@Body ShopInfo shopinfo);
     @PATCH("/mobilekiosk/shopinfo/{pk}/")
@@ -37,6 +39,18 @@ public interface NetworkService {
     //@GET("/api/weathers/{pk}/shopinfo_list/")
     //Call<List<ShopInfo>> get_weather_pk_shopinfo(@Path("pk") int pk);
 
+
+    //OrderDetailInfo
+    @POST("/mobilekiosk/orderdetail/")
+    Call<OrderDetailInfo> post_orderdetailinfo(@Body OrderDetailInfo orderDetailInfo);
+    @PATCH("/mobilekiosk/orderdetail/{pk}/")
+    Call<OrderDetailInfo> patch_orderdetailinfo(@Path("pk") int pk, @Body OrderDetailInfo orderDetailInfo);
+    @DELETE("/mobilekiosk/orderdetail/")
+    Call<OrderDetailInfo> delete_orderdetailinfo(@Path("pk") int pk);
+    @GET("/mobilekiosk/orderdetail/")
+    Call<List<OrderDetailInfo>> get_orderdetailinfo();
+    @GET("/mobilekiosk/orderdetail/{pk}/")
+    Call<OrderDetailInfo> get_pk_orderdetailinfo(@Path("pk") int pk);
 }
 
 //참조 : https://duzi077.tistory.com/129?category=703147

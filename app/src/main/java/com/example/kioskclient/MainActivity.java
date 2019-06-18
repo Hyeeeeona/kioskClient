@@ -91,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+
+        ApplicationController application = ApplicationController.getInstance();
+        application.buildNetworkService( "e64f7133.ngrok.io");
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         fragmentManager = getSupportFragmentManager();
         fragmentMenuHome = new FragmentMenuHome();

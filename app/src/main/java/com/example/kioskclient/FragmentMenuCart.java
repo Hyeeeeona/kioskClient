@@ -86,6 +86,9 @@ public class FragmentMenuCart extends Fragment {
         btnpayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                JSONArray jsonArray = adapter.getListData();
+                JSONObject jsonObject = CartDataFileIO.makeCartDataJson(storeName.getText().toString(),jsonArray);
+                CartDataFileIO.saveCartDataJson(getContext(),jsonObject);
 
                 Intent intent = new Intent(getContext(), PaymentActivity.class);
                 intent.putExtra("StoreName",storeNameStr);

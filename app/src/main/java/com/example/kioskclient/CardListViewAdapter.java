@@ -7,11 +7,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.google.gson.JsonArray;
+
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public class CardListViewAdapter extends BaseAdapter {
     private TextView cardNameView;
     private TextView cardNumberView;
     private TextView cardCompanyView;
+    private CheckBox checkBox;
 
     public CardListViewAdapter() {
     }
@@ -48,6 +50,7 @@ public class CardListViewAdapter extends BaseAdapter {
         cardNameView = (TextView) convertView.findViewById(R.id.card_item_name) ;
         cardNumberView = (TextView) convertView.findViewById(R.id.card_item_number) ;
         cardCompanyView = (TextView) convertView.findViewById(R.id.card_item_company);
+        checkBox = (CheckBox)convertView.findViewById(R.id.card_item_checkbox);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         CardListViewItem listViewItem = cardListViewItems.get(position);
@@ -83,6 +86,10 @@ public class CardListViewAdapter extends BaseAdapter {
         cardListViewItems.add(item);
     }
 
+    public void delete(int i){
+        cardListViewItems.remove(i);
+    }
+
     public JSONArray getListData(){
         JSONArray result = new JSONArray();
         for(CardListViewItem item : cardListViewItems){
@@ -90,5 +97,6 @@ public class CardListViewAdapter extends BaseAdapter {
         }
         return result;
     }
+
 
 }

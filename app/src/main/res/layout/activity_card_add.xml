@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/blank"
+    tools:context=".CardAddActivity">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:padding="15dp"
+        android:text="카드 추가"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:background="#FFFFFF"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:background="#FFFFFF"
+        android:textSize="20dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:text="카드이름"/>
+    <EditText
+
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:id="@+id/card_nickname_edit"
+        android:layout_marginBottom="3dp"
+        android:layout_width="match_parent"
+        android:background="#FFFFFF"
+        android:text="카드 닉네임을 입력해주세요"
+        android:layout_height="40dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:background="#FFFFFF"
+        android:textSize="20dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:text="카드 번호"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="3dp"
+        android:background="#FFFFFF">
+        <EditText
+            android:id="@+id/card_number1"
+            android:layout_weight="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"/>
+        <EditText
+            android:id="@+id/card_number2"
+            android:layout_weight="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"/>
+        <EditText
+            android:id="@+id/card_number3"
+            android:layout_weight="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"/>
+        <EditText
+            android:id="@+id/card_number4"
+            android:layout_weight="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:background="#FFFFFF"
+        android:textSize="20dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:text="카드회사"/>
+    <Spinner
+        android:id="@+id/card_spinner_company"
+        android:background="#FFFFFF"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+    </Spinner>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
+
+        <Button
+            android:id="@+id/card_btn_add_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="추가"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</LinearLayout>

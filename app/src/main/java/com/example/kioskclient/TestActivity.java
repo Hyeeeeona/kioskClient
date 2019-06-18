@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -28,8 +27,6 @@ public class TestActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.testTextView);
         btnGet = findViewById(R.id.testbtn_get);
-        ApplicationController application = ApplicationController.getInstance();
-        application.buildNetworkService( "076150d9.ngrok.io");
         networkService = ApplicationController.getInstance().getNetworkService();
 
         btnGet.setOnClickListener(new View.OnClickListener() {
