@@ -29,7 +29,6 @@ public class CardDataActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.card_list_view);
         Button btn_add = findViewById(R.id.card_btn_add);
-        Button btn_del = findViewById(R.id.card_btn_del);
         adapter = new CardListViewAdapter() ;
         listView.setAdapter(adapter) ;
 
@@ -55,20 +54,6 @@ public class CardDataActivity extends AppCompatActivity {
             }
         });
 
-        btn_del.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SparseBooleanArray checkedItems = listView.getCheckedItemPositions();
-                int count = adapter.getCount() ;
-
-                for (int i = count-1; i >= 0; i--) {
-                    if (checkedItems.get(i)) {
-                        adapter.delete(i);
-                    }
-                }
-                adapter.notifyDataSetChanged();
-            }
-        });
     }
 
     @Override

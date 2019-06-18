@@ -50,7 +50,7 @@ public class CardListViewAdapter extends BaseAdapter {
         cardNameView = (TextView) convertView.findViewById(R.id.card_item_name) ;
         cardNumberView = (TextView) convertView.findViewById(R.id.card_item_number) ;
         cardCompanyView = (TextView) convertView.findViewById(R.id.card_item_company);
-        checkBox = (CheckBox)convertView.findViewById(R.id.card_item_checkbox);
+        Button btnDelete = convertView.findViewById(R.id.card_del);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         CardListViewItem listViewItem = cardListViewItems.get(position);
@@ -61,6 +61,13 @@ public class CardListViewAdapter extends BaseAdapter {
         cardNumberView.setText(listViewItem.getCardNumber());
         cardCompanyView.setText(listViewItem.getCardCompany());
 
+        btnDelete.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cardListViewItems.remove(pos);
+                notifyDataSetChanged();
+            }
+        });
         return convertView;
     }
 
@@ -86,9 +93,6 @@ public class CardListViewAdapter extends BaseAdapter {
         cardListViewItems.add(item);
     }
 
-    public void delete(int i){
-        cardListViewItems.remove(i);
-    }
 
     public JSONArray getListData(){
         JSONArray result = new JSONArray();

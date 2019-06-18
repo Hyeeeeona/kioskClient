@@ -37,7 +37,7 @@
         android:layout_marginBottom="3dp"
         android:layout_width="match_parent"
         android:background="#FFFFFF"
-        android:text="카드 닉네임을 입력해주세요"
+        android:text="카드"
         android:layout_height="40dp" />
 
     <TextView

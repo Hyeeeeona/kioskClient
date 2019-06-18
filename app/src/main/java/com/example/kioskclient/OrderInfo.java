@@ -1,7 +1,5 @@
 package com.example.kioskclient;
 
-import android.util.Log;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
