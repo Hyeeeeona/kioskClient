@@ -51,6 +51,7 @@ public class JsonExample {
         try {
             //매장이름
             cartDataJsonObject.put("StoreName","현아네 떡볶이");
+            cartDataJsonObject.put("StoreId",1);
 
             //장바구니 메뉴 리스트
             menuDataJsonObject.put("MenuName","현아네 떡볶이");

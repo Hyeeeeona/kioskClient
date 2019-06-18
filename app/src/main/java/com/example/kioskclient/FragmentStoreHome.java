@@ -122,6 +122,9 @@ public class FragmentStoreHome extends Fragment {
                 intent.putExtra("cost_m",item.getMenuCost_m());
                 intent.putExtra("cost_l",item.getMenuCost_l());
 
+                intent.putExtra("shop_name",storeName.getText().toString());
+                intent.putExtra("shop_id",1);//임시
+
                 startActivity(intent);
 
 

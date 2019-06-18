@@ -64,6 +64,7 @@
 
 
         <RadioGroup
+            android:id="@+id/RGtemp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -189,7 +190,8 @@
 
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_menu_add"
+            android:text="추가"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

@@ -92,6 +92,7 @@ public class FragmentMenuCart extends Fragment {
 
                 Intent intent = new Intent(getContext(), PaymentActivity.class);
                 intent.putExtra("StoreName",storeNameStr);
+                intent.putExtra("StoreId",1);
                 intent.putExtra("menuCount",adapter.getCount());
                 intent.putExtra("FirstMenu",adapter.getItem(0).getMenuName());
                 intent.putExtra("TotalCost",adapter.getTotalCost());

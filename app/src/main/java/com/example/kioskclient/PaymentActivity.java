@@ -1,10 +1,8 @@
 package com.example.kioskclient;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,7 +33,7 @@ import retrofit2.Response;
 public class PaymentActivity extends AppCompatActivity {
 
     private TextView storeName;
-    private TextView menu;
+    private TextView menuView;
     private TextView totalCost;
     private int int_total;
     private Button payBtn;
@@ -44,6 +42,7 @@ public class PaymentActivity extends AppCompatActivity {
     Spinner timeSpin,cardSpin;
     private NetworkService networkService;
     Boolean status_ok;
+    int shop_id=0;
     ArrayList<String> timearrayList;
     ArrayAdapter<String> timearrayAdapter;
 
@@ -58,7 +57,7 @@ public class PaymentActivity extends AppCompatActivity {
         networkService = ApplicationController.getInstance().getNetworkService();
 
         storeName = findViewById(R.id.payment_store_name);
-        menu = findViewById(R.id.payment_menu_name);
+        menuView = findViewById(R.id.payment_menu_name);
         totalCost = findViewById(R.id.payment_cost);
         payBtn = findViewById(R.id.payment_button);
         editPhone = findViewById(R.id.payment_phone);
@@ -68,8 +67,9 @@ public class PaymentActivity extends AppCompatActivity {
         status_ok = false;
         final Intent intent = getIntent();
         storeName.setText(intent.getStringExtra("StoreName"));
-        menu.setText(intent.getStringExtra("FirstMenu") + "외 " + intent.getIntExtra("menuCount", 0) + "개");
+        menuView.setText(intent.getStringExtra("FirstMenu") + "외 " + (intent.getIntExtra("menuCount", 0)-1) + "개");
         int_total = intent.getIntExtra("TotalCost", 0);
+        shop_id = intent.getIntExtra("Store_id",0);
         totalCost.setText("" + int_total + "원");
         payBtn.setText("결제 : " + int_total);
 
@@ -259,6 +259,9 @@ public class PaymentActivity extends AppCompatActivity {
                                         status_ok = false;
                                     }
                                 });
+
+                                HistoryDataFileIO.saveAddHistoryDataJson(PaymentActivity.this,
+                                        HistoryDataFileIO.makeHistoryDataJson(shop_id,storeName.getText().toString(),menuView.getText().toString(),System.currentTimeMillis()));
                                 onBackPressed();
                             }
                         } catch (JSONException e) {
