@@ -105,7 +105,8 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
         MenuCost_M.setText(" * M : " + menuCost_m + "원");
         MenuCost_L.setText(" * L : " + menuCost_l + "원");
 
-
+        cost = menuCost_s;
+        btnMenuCost.setText(Integer.toString(count) + "개 담기       " + (count * cost) + "원");
     }
 
     @Override

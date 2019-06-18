@@ -67,16 +67,16 @@ public class CardDataFileIO {
 
             //FIXME: 작업 이후 삭제
             // CardDataFileIO 테스트 임시 데이터 저장
-
+            /*
             String string = JsonExample.makeJsonStringCardDataExample();
             try {
                 jsonArray = new JSONArray(string);
                 CardDataFileIO.saveCardDataJson(context,jsonArray);
             }catch (Exception ee){
                 e.printStackTrace();
-            }
+            }*/
             //TODO: 작업이후 추가
-            // CardDataFileIO.saveCardEmptyData(getApplicationContext());
+            CardDataFileIO.saveCardEmptyData(context);
         }
         return jsonArray;
     }

@@ -50,19 +50,25 @@ public class FragmentMenuOrderHistory extends Fragment {
         try {
             JSONArray jsonArray = HistoryDataFileIO.readHistoryDataJson(getContext());
             for(int i =0 ; i< jsonArray.length();i++){
-                JSONObject history = jsonArray.getJSONObject(i);
-                int shop_id = history.getInt("shop_id");
-                String shop_name = history.getString("shop_name");
-                String history_menu = history.getString("history_menu");
-                int date = history.getInt("date");
-                Date mDate = new Date(date);
+                if(jsonArray.isNull(i)){
 
-                adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
-                        shop_name,history_menu,mFormat.format(mDate));
+                }
+                {
+                    JSONObject history = jsonArray.getJSONObject(i);
+                    int shop_id = history.getInt("shop_id");
+                    String shop_name = history.getString("shop_name");
+                    String history_menu = history.getString("history_menu");
+                    int date = history.getInt("date");
+                    Date mDate = new Date(date);
+
+                    adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
+                            shop_name, history_menu, mFormat.format(mDate));
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+/*
 
         // 데이터 하드코딩
         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
@@ -71,6 +77,7 @@ public class FragmentMenuOrderHistory extends Fragment {
                 "이전 주문 매장 2", "아메리카노 2", "5월 2일");
         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
                 "이전 주문 매장 3", "아메리카노 3", "3월 3일");
+*/
 
         return view;
     }

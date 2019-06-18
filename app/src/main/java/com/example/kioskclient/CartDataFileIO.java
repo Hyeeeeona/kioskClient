@@ -67,7 +67,7 @@ public class CartDataFileIO {
 
             //FIXME: 작업 이후 삭제
             // CartDataFileIO 테스트 임시 데이터 저장
-
+/*
             String string = JsonExample.makeJsonStringCartDataExample();
             try {
                 jsonObject = new JSONObject(string);
@@ -75,8 +75,9 @@ public class CartDataFileIO {
             }catch (Exception ee){
                 e.printStackTrace();
             }
+            */
             //TODO: 작업이후 추가
-            // CartDataFileIO.saveCartEmptyData(getApplicationContext());
+            CartDataFileIO.saveCartEmptyData(context);
         }
         return jsonObject;
     }

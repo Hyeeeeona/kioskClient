@@ -3,6 +3,7 @@ package com.example.kioskclient;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ public class CardDataActivity extends AppCompatActivity {
 
     ListView listView;
     CardListViewAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,18 +31,22 @@ public class CardDataActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.card_list_view);
         Button btn_add = findViewById(R.id.card_btn_add);
-        adapter = new CardListViewAdapter() ;
-        listView.setAdapter(adapter) ;
+        adapter = new CardListViewAdapter();
+        listView.setAdapter(adapter);
 
         try {
             JSONArray jsonArray = CardDataFileIO.readCardDataJson(this);
-            for(int i =0 ; i< jsonArray.length();i++){
-                JSONObject card = jsonArray.getJSONObject(i);
-                String cardCompany = card.getString("cardCompany");
-                String cardNumber = card.getString("cardNumber");
-                String cardNickName = card.getString("cardNickName");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                if (jsonArray.isNull(i)) {
+                    Log.d("JSON",jsonArray.toString());
+                } else {
+                    JSONObject card = jsonArray.getJSONObject(i);
+                    String cardCompany = card.getString("cardCompany");
+                    String cardNumber = card.getString("cardNumber");
+                    String cardNickName = card.getString("cardNickName");
 
-                adapter.addItem(cardNickName,cardCompany,cardNumber) ;
+                    adapter.addItem(cardNickName, cardCompany, cardNumber);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -60,6 +66,6 @@ public class CardDataActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         JSONArray jsonArray = adapter.getListData();
-        CardDataFileIO.saveCardDataJson(CardDataActivity.this,jsonArray);
+        CardDataFileIO.saveCardDataJson(CardDataActivity.this, jsonArray);
     }
 }

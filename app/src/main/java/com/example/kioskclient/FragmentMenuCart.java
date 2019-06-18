@@ -26,7 +26,7 @@ import org.json.JSONObject;
 //TODO: 합계를 표기하기위해서는 ListView 대신 RecyclerView를 사용할 필요가 있음. 시간 여유가 있으면 수정할 예정
 public class FragmentMenuCart extends Fragment {
 
-
+    View view;
     public FragmentMenuCart() {
         // Required empty public constructor
     }
@@ -47,8 +47,14 @@ public class FragmentMenuCart extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_menu_cart, null);
+        view = inflater.inflate(R.layout.fragment_menu_cart, null);
 
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         String Jsonstr = JsonExample.makeJsonStringCartDataExample();
         Log.d("FragmentCart",Jsonstr);
 
@@ -98,11 +104,9 @@ public class FragmentMenuCart extends Fragment {
                 intent.putExtra("TotalCost",adapter.getTotalCost());
                 startActivity(intent);
 
-
             }
         });
 
-        return view;
     }
 
     @Override

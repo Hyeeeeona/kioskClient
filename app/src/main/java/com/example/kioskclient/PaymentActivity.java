@@ -259,7 +259,7 @@ public class PaymentActivity extends AppCompatActivity {
                                         status_ok = false;
                                     }
                                 });
-
+                                CartDataFileIO.saveCartEmptyData(PaymentActivity.this);
                                 HistoryDataFileIO.saveAddHistoryDataJson(PaymentActivity.this,
                                         HistoryDataFileIO.makeHistoryDataJson(shop_id,storeName.getText().toString(),menuView.getText().toString(),System.currentTimeMillis()));
                                 onBackPressed();
