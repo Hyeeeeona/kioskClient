@@ -39,6 +39,17 @@ public interface NetworkService {
     //@GET("/api/weathers/{pk}/shopinfo_list/")
     //Call<List<ShopInfo>> get_weather_pk_shopinfo(@Path("pk") int pk);
 
+    //OrderInfo
+    @POST("/mobilekiosk/order/")
+    Call<OrderInfo> post_orderinfo(@Body OrderInfo orderInfo);
+    @PATCH("/mobilekiosk/order/{pk}/")
+    Call<OrderInfo> patch_orderinfo(@Path("pk") int pk, @Body OrderInfo Info);
+    @DELETE("/mobilekiosk/order/")
+    Call<OrderInfo> delete_orderinfo(@Path("pk") int pk);
+    @GET("/mobilekiosk/order/")
+    Call<List<OrderInfo>> get_orderinfo();
+    @GET("/mobilekiosk/order/{pk}/")
+    Call<OrderInfo> get_pk_orderinfo(@Path("pk") int pk);
 
     //OrderDetailInfo
     @POST("/mobilekiosk/orderdetail/")

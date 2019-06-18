@@ -41,6 +41,7 @@ public class JsonExample {
         result = cardDataJsonArray.toString();
         return result;
     }
+
     public static String makeJsonStringCartDataExample(){
         String result;
 
@@ -80,7 +81,6 @@ public class JsonExample {
             menuDataJsonArray.put(menuDataJsonObject);
 
             cartDataJsonObject.put("MenuData",menuDataJsonArray);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
