@@ -47,6 +47,7 @@ public class FragmentStoreHome extends Fragment {
     private Button store_close;
 
     private View view;
+    Integer shop_id;
 
 
     public FragmentStoreHome() {
@@ -95,7 +96,7 @@ public class FragmentStoreHome extends Fragment {
 
         Bundle args = getArguments();
         if(args != null){
-            Integer shop_id = args.getInt("shop_id");
+            shop_id = args.getInt("shop_id");
             Toast.makeText(getContext(), "shop_id - "+ shop_id, Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getContext(), "shop_id - null", Toast.LENGTH_LONG).show();
@@ -123,7 +124,7 @@ public class FragmentStoreHome extends Fragment {
                 intent.putExtra("cost_l",item.getMenuCost_l());
 
                 intent.putExtra("shop_name",storeName.getText().toString());
-                intent.putExtra("shop_id",1);//임시
+                intent.putExtra("shop_id",shop_id);//임시
 
                 startActivity(intent);
 
@@ -137,9 +138,11 @@ public class FragmentStoreHome extends Fragment {
             public void onClick(View v) {
                 if (i % 2 == 1) {
                     favorite.setImageResource(R.drawable.star_score);
+                    FavoriteDataFileIO.saveAddFavoriteData(getContext(),shop_id);
                     i++;
                 } else {
                     favorite.setImageResource(R.drawable.star_empty);
+                    FavoriteDataFileIO.deleteFavoriteData(getContext(),shop_id);
                     i--;
                 }
 

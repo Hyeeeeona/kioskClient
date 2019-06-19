@@ -44,7 +44,7 @@ public class FragmentMenuOrderHistory extends Fragment {
         ListView listview = (ListView) view.findViewById(R.id.listview_order_history);
         listview.setAdapter(adapter);
 
-        SimpleDateFormat mFormat = new SimpleDateFormat("MM월 dd일");
+        SimpleDateFormat mFormat = new SimpleDateFormat("MM월 dd일 hh시 mm분");
 
 
         try {
