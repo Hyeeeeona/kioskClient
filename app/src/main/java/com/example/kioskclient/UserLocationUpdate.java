@@ -30,6 +30,7 @@ public class UserLocationUpdate extends Service implements LocationListener {
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
 
     protected LocationManager locationManager;
+    UserLocationUpdate.GeoPoint geoPoint;
 
     public UserLocationUpdate(Context context) {
         // Required empty public constructor
@@ -157,6 +158,23 @@ public class UserLocationUpdate extends Service implements LocationListener {
         }
 
         return strbuf.toString();
+    }
+
+    public String getDistance(String address){
+        /* 현재 위치를 기준으로 해당 가게와 거리 계산 / 직선 & 각도를 기준으로 거리 계산 */
+        geoPoint = findGeoPoint(address);
+
+        Location start = new Location("point A");
+        start.setLatitude(getLatitude());
+        start.setLongitude(getLongitude());
+        Location end = new Location("point B");
+        end.setLatitude(geoPoint.targetLatitude);
+        end.setLongitude(geoPoint.targetLongitude);
+
+        String distance = String.format("%.2f",start.distanceTo(end));
+        Toast.makeText(mContext, "distance = " + distance, Toast.LENGTH_LONG).show();
+
+        return distance + "m";
     }
 
     public double getLatitude()

@@ -18,13 +18,13 @@ public class ShopInfoDataFileIO {
     public static JSONObject makeShopInfoDataJson(ShopInfo shopInfo){
         JSONObject shopInfoDataJsonObject = new JSONObject();
         try {
-
             shopInfoDataJsonObject.put("shop_id", shopInfo.getShopId());
             shopInfoDataJsonObject.put("shop_name", shopInfo.getShopName());
             shopInfoDataJsonObject.put("shop_tel", shopInfo.getShopTel());
             shopInfoDataJsonObject.put("shop_businesshours", shopInfo.getBusinessHours());
             shopInfoDataJsonObject.put("shop_personalday", shopInfo.getPersonalDay());
             shopInfoDataJsonObject.put("shop_introduction", shopInfo.getIntroduction());
+            shopInfoDataJsonObject.put("shop_address", shopInfo.getShopAddress());
 
         }catch (JSONException e){
             e.printStackTrace();
@@ -75,43 +75,8 @@ public class ShopInfoDataFileIO {
 
         }catch (Exception e){
             e.printStackTrace();
-
-            //FIXME: 작업 이후 삭제
-            // CartDataFileIO 테스트 임시 데이터 저장
-/*
-            String string = makeJsonStringShopInfo();
-            try {
-                jsonObject = new JSONObject(string);
-                ShopInfoDataFileIO.saveShopInfoDataJson(context,jsonObject);
-            }catch (Exception ee){
-                e.printStackTrace();
-            }
-            */
-            //TODO: 작업이후 추가
-            // CartDataFileIO.saveShopInfoEmptyData(getApplicationContext());
+            ShopInfoDataFileIO.saveShopInfoEmptyData(context);
         }
         return jsonObject;
     }
-/*
-    public static String makeJsonStringShopInfo(ShopInfo shopInfo){
-        String result;
-
-        JSONObject shopInfoDataJsonObject = new JSONObject();
-        try {
-
-            shopInfoDataJsonObject.put("shop_id", shopInfo.getShopId());
-            shopInfoDataJsonObject.put("shop_name", shopInfo.getShopName());
-            shopInfoDataJsonObject.put("shop_tel", shopInfo.getShopTel());
-            shopInfoDataJsonObject.put("shop_businesshours", shopInfo.getBusinessHours());
-            shopInfoDataJsonObject.put("shop_personalday", shopInfo.getPersonalDay());
-            shopInfoDataJsonObject.put("shop_introduction", shopInfo.getIntroduction());
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        result = shopInfoDataJsonObject.toString();
-        return result;
-    }
-    */
 }

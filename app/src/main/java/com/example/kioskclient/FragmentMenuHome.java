@@ -24,7 +24,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,8 +46,8 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
     TextView userSearchText, listText, resultNoRest, nowLocation;
     ListView listItems, favoriteItems;
     ListViewSearchAdapter adapter;
-    UserLocationUpdate.GeoPoint geoPoint;
     FavoriteListViewAdapter favoriteListViewAdapter;
+    private NetworkService networkService;
 
     private UserLocationUpdate userLocationUpdate;
     private Context mContext;
@@ -89,10 +98,64 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         favoriteItems.setAdapter(favoriteListViewAdapter);
         searchText.setText("");
 
-        for(int i = 0; i < 10; i++) {
-            favoriteListViewAdapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
-                    "매장" + i, "아메리카노" + i);
+        JSONArray jsonArray = FavoriteDataFileIO.readFavoriteDataJson(getContext());
+
+        networkService = ApplicationController.getInstance().getNetworkService();
+        for (int i = 0; i < jsonArray.length(); i++) {
+
+            if (jsonArray.isNull(i)) {
+
+            } else {
+                try {
+                    JSONObject jsonObject;
+                    jsonObject = jsonArray.getJSONObject(i);
+                    int store_id = jsonObject.getInt("store_id");
+
+                    Call<ShopInfo> getCall = networkService.get_pk_shopinfo(store_id);
+
+                    getCall.enqueue(new Callback<ShopInfo>() {
+                        @Override
+                        public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
+                            if (response.isSuccessful()) {
+                                ShopInfo shopinfo = response.body();
+                                favoriteListViewAdapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px), shopinfo.getShopName(), shopinfo.getBusinessHours());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ShopInfo> call, Throwable t) {
+
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
+        Call<List<ShopInfo>> getCall = networkService.get_shopinfo();
+        getCall.enqueue(new Callback<List<ShopInfo>>() {
+            @Override
+            public void onFailure(Call<List<ShopInfo>> call, Throwable t) {
+                Log.d("debugging", "Fail Message : " + t.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call<List<ShopInfo>> call, Response<List<ShopInfo>> response) {
+                if (response.isSuccessful()) {
+                    List<ShopInfo> shopinfoList = response.body();
+                    for (ShopInfo shopinfo : shopinfoList ) {
+                        JSONObject jsonObject = ShopInfoDataFileIO.makeShopInfoDataJson(shopinfo);
+                        ShopInfoDataFileIO.saveShopInfoDataJson(mContext, jsonObject);
+
+                        Toast.makeText(mContext, "distance = "+ userLocationUpdate.getDistance(shopinfo.getShopAddress()), Toast.LENGTH_LONG).show();
+                        adapter.addItem(shopinfo.getShopName(),0, userLocationUpdate.getDistance(shopinfo.getShopAddress()),getResources().getDrawable(R.drawable.now_location), shopinfo.getIntroduction());
+                    }
+                } else {
+                    Log.d("debugging", "Error Message : " + response.errorBody());
+                }
+            }
+        });
 
         backHomeBtn.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
@@ -190,21 +253,8 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         mLockListView = true;
 
         for(int i = 0; i < 5; i++){
-            /* 현재 위치를 기준으로 해당 가게와 거리 계산 / 직선 & 각도를 기준으로 거리 계산 */
-            geoPoint = userLocationUpdate.findGeoPoint("인천 연수구 아카데미로 119");
 
-            Location start = new Location("point A");
-            start.setLatitude(35.228545);
-            start.setLongitude(128.889352);
-            Location end = new Location("point B");
-            end.setLatitude(geoPoint.targetLatitude);
-            end.setLongitude(geoPoint.targetLongitude);
 
-            float distant = start.distanceTo(end);
-            Toast.makeText(mContext, "distant = " + distant, Toast.LENGTH_LONG).show();
-
-            adapter.addItem("example"+(page*OFFSET) + i + "점", (i+1.0), distant, getResources().getDrawable(R.drawable.star_score), "garlic, fried chicken");
-            adapter.addItem("test" +(page*OFFSET) + i+ "점", (i+1.0), distant, getResources().getDrawable(R.drawable.star_score), "pizza, potato");
         }
 
         new Handler().postDelayed(new Runnable(){
@@ -215,7 +265,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
                 progressBar.setVisibility(View.GONE);
                 mLockListView = false;
             }
-        }, 1000);
+        }, 500);
     }
 
 }

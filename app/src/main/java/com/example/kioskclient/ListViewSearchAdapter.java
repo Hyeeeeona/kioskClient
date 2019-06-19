@@ -15,6 +15,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -76,7 +79,7 @@ public class ListViewSearchAdapter extends BaseAdapter implements Filterable {
         return convertView;
     }
 
-    public void addItem(String name, Number score, Number distance, Drawable icon, String main) {
+    public void addItem(String name, Number score, String distance, Drawable icon, String main) {
         ListViewSearchItem item = new ListViewSearchItem();
 
         item.setRestName(name);
@@ -118,12 +121,31 @@ public class ListViewSearchAdapter extends BaseAdapter implements Filterable {
                 results.values = itemList;
                 results.count = itemList.size();
             }
+
             return  results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             filteredItemList = (ArrayList<ListViewSearchItem>) results.values;
+
+            Comparator<ListViewSearchItem> noDesc = new Comparator<ListViewSearchItem>() {
+                @Override
+                public int compare(ListViewSearchItem o1, ListViewSearchItem o2) {
+                    int ret = 0;
+
+                    if(Float.parseFloat(o1.getRestDistance()) < Float.parseFloat(o2.getRestDistance())){
+                        ret = 1;
+                    } else if(Float.parseFloat(o1.getRestDistance()) > Float.parseFloat(o2.getRestDistance())){
+                        ret = 0;
+                    } else {
+                        ret = -1;
+                    }
+                    return ret;
+                }
+            };
+
+            Collections.sort(filteredItemList, noDesc);
 
             if(results.count > 0){
                 notifyDataSetChanged();
@@ -132,4 +154,6 @@ public class ListViewSearchAdapter extends BaseAdapter implements Filterable {
             }
         }
     }
+
+
 }
