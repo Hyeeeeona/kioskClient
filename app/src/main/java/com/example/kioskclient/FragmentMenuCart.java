@@ -37,6 +37,7 @@ public class FragmentMenuCart extends Fragment {
     private Button btnpayment;
     private TextView carttotal;
 
+    int shop_id;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +73,8 @@ public class FragmentMenuCart extends Fragment {
             //JSONObject jsonObject = new JSONObject(Jsonstr);
             JSONObject jsonObject = CartDataFileIO.readCartDataJson(getContext());
             storeNameStr = jsonObject.getString("StoreName");
+            shop_id = jsonObject.getInt("StoreId");
+            Log.d("shop_id","cartFrag"+shop_id);
             storeName.setText(jsonObject.getString("StoreName"));
             JSONArray jsonArray =  jsonObject.getJSONArray("MenuData");
 
@@ -98,15 +101,13 @@ public class FragmentMenuCart extends Fragment {
 
                 Intent intent = new Intent(getContext(), PaymentActivity.class);
                 intent.putExtra("StoreName",storeNameStr);
-                intent.putExtra("StoreId",1);
+                intent.putExtra("Store_id",shop_id);
                 intent.putExtra("menuCount",adapter.getCount());
                 intent.putExtra("FirstMenu",adapter.getItem(0).getMenuName());
                 intent.putExtra("TotalCost",adapter.getTotalCost());
                 startActivity(intent);
-
             }
         });
-
     }
 
     @Override

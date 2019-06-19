@@ -39,20 +39,21 @@ public class PaymentActivity extends AppCompatActivity {
     private Button payBtn;
     EditText editPhone;
     int res_time;
-    Spinner timeSpin,cardSpin;
+    Spinner timeSpin, cardSpin;
     private NetworkService networkService;
     Boolean status_ok;
-    int shop_id=0;
+    int shop_id = 0;
     ArrayList<String> timearrayList;
     ArrayAdapter<String> timearrayAdapter;
-
     ArrayList<String> cardarrayList;
     ArrayAdapter<String> cardarrayAdapter;
+
+    int order_id = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-
 
         networkService = ApplicationController.getInstance().getNetworkService();
 
@@ -62,14 +63,13 @@ public class PaymentActivity extends AppCompatActivity {
         payBtn = findViewById(R.id.payment_button);
         editPhone = findViewById(R.id.payment_phone);
 
-
-
         status_ok = false;
         final Intent intent = getIntent();
         storeName.setText(intent.getStringExtra("StoreName"));
-        menuView.setText(intent.getStringExtra("FirstMenu") + "외 " + (intent.getIntExtra("menuCount", 0)-1) + "개");
+        menuView.setText(intent.getStringExtra("FirstMenu") + "외 " + (intent.getIntExtra("menuCount", 0) - 1) + "개");
         int_total = intent.getIntExtra("TotalCost", 0);
-        shop_id = intent.getIntExtra("Store_id",0);
+        shop_id = intent.getIntExtra("Store_id", 0);
+        Log.d("shop_id","payment"+shop_id);
         totalCost.setText("" + int_total + "원");
         payBtn.setText("결제 : " + int_total);
 
@@ -78,10 +78,10 @@ public class PaymentActivity extends AppCompatActivity {
         cardarrayList = new ArrayList<>();
         try {
             JSONArray jsonArray = CardDataFileIO.readCardDataJson(this);
-            for(int i =0 ; i< jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject card = jsonArray.getJSONObject(i);
                 String cardNickName = card.getString("cardNickName");
-                Log.d("card",cardNickName);
+                Log.d("card", cardNickName);
                 cardarrayList.add(cardNickName);
             }
         } catch (JSONException e) {
@@ -111,12 +111,13 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String str = timearrayList.get(i);
-                str = str.replaceAll("분","");
-                str = str.replaceAll(" ","");
-                str = str.replaceAll("\n","");
+                str = str.replaceAll("분", "");
+                str = str.replaceAll(" ", "");
+                str = str.replaceAll("\n", "");
                 res_time = Integer.parseInt(str);
-                Log.d("숫자",""+res_time);
+                Log.d("숫자", "" + res_time);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -141,38 +142,6 @@ public class PaymentActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //확인 눌렀을 때
 
-
-                        //OrderId 가져오기
-                        Call<List<OrderInfo>> getCall = networkService.get_orderinfo();
-                        getCall.enqueue(new Callback<List<OrderInfo>>() {
-                            @Override
-                            public void onFailure(Call<List<OrderInfo>> call, Throwable t) {
-                                Log.d("debugging", "Fail Message : " + t.getMessage());
-                            }
-
-                            @Override
-                            public void onResponse(Call<List<OrderInfo>> call, Response<List<OrderInfo>> response) {
-                                if (response.isSuccessful()) {
-                                    int order_id1 = 1;
-                                    List<OrderInfo> orderinfoList = response.body();
-                                    for (OrderInfo orderInfo1 : orderinfoList) {
-                                        order_id1 = orderInfo1.getOrderId();
-                                    }
-                                    SharedPreferences shardPref =
-                                            getSharedPreferences("inha",MODE_PRIVATE);
-                                    if (shardPref != null){
-                                        SharedPreferences.Editor editor = shardPref.edit();
-                                        //editor.putString(키값, 정보값) 그외 int Float등 다양한 자료형을 저장 가능.
-                                        editor.putInt("order_id",order_id1);
-                                        editor.commit();
-                                    }
-                                } else {
-                                    Log.d("debugging", "Error Message : " + response.errorBody());
-                                }
-                            }
-                        });
-
-
                         //OrderInfo 전송
                         FirebaseAuth mAuth;
                         FirebaseUser currentUser;
@@ -182,7 +151,7 @@ public class PaymentActivity extends AppCompatActivity {
                         String name = currentUser.getEmail();
                         String phone = editPhone.getText().toString();
 
-                        final OrderInfo orderInfo = new OrderInfo(name.substring(0, 9), phone, res_time, 1, int_total);
+                        final OrderInfo orderInfo = new OrderInfo(order_id, name.substring(0, 9), phone, res_time, shop_id, int_total);
 
                         Log.d("Time", "order_time : " + orderInfo.getOrder_time());
 
@@ -193,7 +162,63 @@ public class PaymentActivity extends AppCompatActivity {
                             public void onResponse(Call<OrderInfo> call, Response<OrderInfo> response) {
                                 if (response.isSuccessful()) {
                                     status_ok = true;
+                                    OrderInfo orderInfo1 = response.body();
                                     Log.d("Success:", "데이터 저장 완료" + status_ok);
+                                    Log.d("order_id", "" + orderInfo1.getOrderId());
+                                    order_id = orderInfo1.getOrderId();
+
+
+                                    JSONObject jsonObject = CartDataFileIO.readCartDataJson(PaymentActivity.this);
+                                    JSONArray jsonArray = null;
+                                    try {
+                                        jsonArray = jsonObject.getJSONArray("MenuData");
+
+
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            JSONObject menu = jsonArray.getJSONObject(i);
+                                            String menuName = menu.getString("MenuName");
+                                            String menuOption = menu.getString("MenuOption");
+                                            int menuCount = menu.getInt("MenuCount");
+                                            int menuCost = menu.getInt("MenuCost");
+
+                                            OrderDetailInfo orderDetailInfo = new OrderDetailInfo();
+                                            orderDetailInfo.setOrder_id(order_id);
+                                            Log.d("orderid", "" + orderDetailInfo.getOrder_id());
+                                            orderDetailInfo.setMenu_name(menuName);
+                                            orderDetailInfo.setMenu_size(menuOption);
+                                            orderDetailInfo.setQuantity(menuCount);
+                                            orderDetailInfo.setTotal(menuCost * menuCount);
+
+                                            Call<OrderDetailInfo> postCall = networkService.post_orderdetailinfo(orderDetailInfo);
+                                            postCall.enqueue(new Callback<OrderDetailInfo>() {
+                                                @Override
+                                                public void onResponse(Call<OrderDetailInfo> call, Response<OrderDetailInfo> response) {
+                                                    if (response.isSuccessful()) {
+                                                        status_ok = true;
+                                                        Log.d("Success:", "데이터 저장 완료" + status_ok);
+
+
+                                                        CartDataFileIO.saveCartEmptyData(PaymentActivity.this);
+                                                        HistoryDataFileIO.saveAddHistoryDataJson(PaymentActivity.this,
+                                                                HistoryDataFileIO.makeHistoryDataJson(shop_id, storeName.getText().toString(), menuView.getText().toString(), System.currentTimeMillis()));
+
+                                                    } else {
+                                                        int StatusCode = response.code();
+                                                        Log.i(ApplicationController.TAG, "Status Code:" + StatusCode);
+                                                        status_ok = false;
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<OrderDetailInfo> call, Throwable t) {
+                                                    Log.i(ApplicationController.TAG, "Fail Message" + t.getMessage());
+                                                    status_ok = false;
+                                                }
+                                            });
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 } else {
                                     int StatusCode = response.code();
                                     Log.i(ApplicationController.TAG, "Status Code:" + StatusCode);
@@ -207,66 +232,7 @@ public class PaymentActivity extends AppCompatActivity {
                                 status_ok = false;
                             }
                         });
-
-
-
-                        JSONObject jsonObject = CartDataFileIO.readCartDataJson(PaymentActivity.this);
-                        JSONArray jsonArray = null;
-                        int order_id = 1;
-                        try {
-                            jsonArray = jsonObject.getJSONArray("MenuData");
-
-                            SharedPreferences shardPref =
-                                    getSharedPreferences("inha",MODE_PRIVATE);
-                            if (shardPref != null) {
-                                order_id = shardPref.getInt("order_id",1);
-                            }
-
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject menu = jsonArray.getJSONObject(i);
-                                String menuName = menu.getString("MenuName");
-                                String menuOption = menu.getString("MenuOption");
-                                int menuCount = menu.getInt("MenuCount");
-                                int menuCost = menu.getInt("MenuCost");
-
-                                OrderDetailInfo orderDetailInfo = new OrderDetailInfo();
-                                orderDetailInfo.setOrder_id(29);
-                                Log.d("orderid", "" + orderDetailInfo.getOrder_id());
-                                orderDetailInfo.setMenu_name(menuName);
-                                orderDetailInfo.setMenu_size(menuOption);
-                                orderDetailInfo.setQuantity(menuCount);
-                                orderDetailInfo.setTotal(menuCost * menuCount);
-
-                                Call<OrderDetailInfo> postCall = networkService.post_orderdetailinfo(orderDetailInfo);
-                                postCall.enqueue(new Callback<OrderDetailInfo>() {
-                                    @Override
-                                    public void onResponse(Call<OrderDetailInfo> call, Response<OrderDetailInfo> response) {
-
-                                        if (response.isSuccessful()) {
-                                            status_ok = true;
-
-                                            Log.d("Success:", "데이터 저장 완료" + status_ok);
-                                        } else {
-                                            int StatusCode = response.code();
-                                            Log.i(ApplicationController.TAG, "Status Code:" + StatusCode);
-                                            status_ok = false;
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<OrderDetailInfo> call, Throwable t) {
-                                        Log.i(ApplicationController.TAG, "Fail Message" + t.getMessage());
-                                        status_ok = false;
-                                    }
-                                });
-                                CartDataFileIO.saveCartEmptyData(PaymentActivity.this);
-                                HistoryDataFileIO.saveAddHistoryDataJson(PaymentActivity.this,
-                                        HistoryDataFileIO.makeHistoryDataJson(shop_id,storeName.getText().toString(),menuView.getText().toString(),System.currentTimeMillis()));
-                                onBackPressed();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        if(status_ok) onBackPressed();
                     }
                 });
 

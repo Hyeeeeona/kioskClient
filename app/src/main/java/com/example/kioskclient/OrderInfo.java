@@ -16,7 +16,7 @@ public class OrderInfo {
     public OrderInfo() {
     }
 
-    public OrderInfo(String name, String phone_number, int reservation_min, int shop_id, int total) {
+    public OrderInfo(int order_id, String name, String phone_number, int reservation_min, int shop_id, int total) {
         long mNow;
         Date mDate;
         Date rDate;
@@ -27,7 +27,7 @@ public class OrderInfo {
         rDate = new Date(mNow + (60000*reservation_min));
         this.name = name;
         this.order_time = mFormat.format(mDate);
-        this.order_id = 0;
+        this.order_id = order_id;
         this.phone_number = phone_number;
         this.reservation_time = mFormat.format(rDate);
         this.shop_id = shop_id;
