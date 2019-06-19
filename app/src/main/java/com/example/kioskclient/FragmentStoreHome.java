@@ -17,6 +17,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -24,24 +38,33 @@ import android.widget.Toast;
  */
 public class FragmentStoreHome extends Fragment {
 
-    private TextView storeName;
-    private TextView storeInfoTime;
-    private TextView storeInfoPhone;
-    private TextView storeInfo;
+    private NetworkService networkService;
+
+    TextView storeName;
+    TextView storeInfoTime;
+    TextView storeInfoPhone;
+    TextView storeInfo;
 
     private ImageView favorite;
     private int i = 1;
 
     //서버에서 받는 정보
-    private String sv_storeName = "별다방";
-    private String sv_store_info_time = "매일 오전 11:00 ~ 오후 11:00";
-    private String sv_store_info_phone = "02-123-4567";
-    private String sv_store_info = "커피 맛집으로 소문난 별다방입니다!";
+    private String sv_storeName = null; //"별다방";
+    private String sv_store_info_time = null; // "매일 오전 11:00 ~ 오후 11:00";
+    private String sv_store_info_phone = null; //"02-123-4567";
+    private String sv_store_info = null; //"커피 맛집으로 소문난 별다방입니다!";
     private int store_status = 1; //0 : 영업x, 1 : 영업중
-    private Button store_close;
+    private String sv_menu_name;
+    private String sv_menu_size;
+    private int sv_hotorcold;
+    private int sv_menu_price;
+    private String menu_img;
 
     private View view;
     Integer shop_id;
+
+
+    private Button store_close;
 
 
     public FragmentStoreHome() {
@@ -52,15 +75,96 @@ public class FragmentStoreHome extends Fragment {
         Bundle args = new Bundle();
         args.putInt("shop_id", shop_id);
         fragment.setArguments(args);
+        Log.d("진아가 보내준 shop_id", Integer.toString(shop_id));
         return fragment;
     }
-    private StoreHomeListViewAdapter adapter;
+    StoreHomeListViewAdapter adapter;
+    ListView listview;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //진아가 보내준 가게정보 shop_id
+        Bundle args = getArguments();
+        if(args != null){
+            shop_id = args.getInt("shop_id");
+            Toast.makeText(getContext(), "shop_id - "+ shop_id, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getContext(), "shop_id - null", Toast.LENGTH_LONG).show();
+        }
+
+        //서버에서 데이터 받아오기
+        networkService = ApplicationController.getInstance().getNetworkService();
+        Call<ShopInfo> getCall = networkService.get_pk_shopinfo(shop_id);
+
+        Log.d("서버", Integer.toString(shop_id));
+        //shop info - 정상작동 확인
+        getCall.enqueue(new Callback<ShopInfo>() {
+            @Override
+            public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
+                Boolean isExist = false;
+                if(response.isSuccessful()){
+                    ShopInfo shopInfo = response.body();
+
+                    sv_storeName = shopInfo.getShopName();
+                    Log.d("storeName",sv_storeName);
+                    sv_store_info_time = shopInfo.getBusinessHours();
+                    sv_store_info_phone = shopInfo.getShopTel();
+                    sv_store_info = shopInfo.getIntroduction();
+                    store_status = shopInfo.getStatus();
+
+                    storeName.setText(sv_storeName);
+                    storeInfoTime.setText("* 운영정보 : " + sv_store_info_time);
+                    storeInfoPhone.setText("* 매장전화번호 : " + sv_store_info_phone);
+                    storeInfo.setText("* 소개 : " + sv_store_info);
+
+
+                } else {
+                    Log.d("debugging","Error Message : " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ShopInfo> call, Throwable t) {
+
+                Log.d("debugging", "Fail message : " + t.getMessage());
+            }
+        });
+
+        //shopMenuInfo - adapter 데이터 연동 -> StoreMenu(Activity)로 데이터 보내주기
+        Call<List<ShopMenuInfo>> getCallMenu = networkService.get_shopMenuInfo();
+        getCallMenu.enqueue(new Callback<List<ShopMenuInfo>>() {
+            @Override
+            public void onResponse(Call<List<ShopMenuInfo>> call, Response<List<ShopMenuInfo>> response) {
+                Boolean isExist = false;
+                if(response.isSuccessful()){
+                    List<ShopMenuInfo> shopMenuInfoList = response.body();
+                    for(ShopMenuInfo shopmenuinfo : shopMenuInfoList){
+                        if(shopmenuinfo.getShopIdId() == shop_id){
+
+                            //여기부터 엉망입니다..
+                            sv_menu_name = shopmenuinfo.getMenuName();
+                            sv_menu_size = shopmenuinfo.getMenuSize();
+                            sv_hotorcold = shopmenuinfo.getHotOrCold();
+                            sv_menu_price = shopmenuinfo.getMenuPrice();
+                            menu_img = shopmenuinfo.getMenuImg();
+                            adapter.addItem(Integer.toString(shop_id), sv_menu_name, "Hot and Ice", 4000, 5000, 6000);
+
+                        }else {
+                            Log.d("debugging","Error Message : " + response.errorBody());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ShopMenuInfo>> call, Throwable t) {
+
+            }
+        });
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_store_home, null);
 
@@ -71,10 +175,9 @@ public class FragmentStoreHome extends Fragment {
         storeInfoPhone = (TextView) view.findViewById(R.id.store_info_phone);
         storeInfo = (TextView) view.findViewById(R.id.store_info);
 
-        storeName.setText(sv_storeName);
-        storeInfoTime.setText("* 운영정보 : " + sv_store_info_time);
-        storeInfoPhone.setText("* 매장전화번호 : " + sv_store_info_phone);
-        storeInfo.setText("* 소개 : " + sv_store_info);
+
+
+
 
         //매장 오픈 여부
         store_close = (Button) view.findViewById(R.id.btn_storeClose);
@@ -88,13 +191,6 @@ public class FragmentStoreHome extends Fragment {
 
         ListView listview = (ListView) view.findViewById(R.id.StoreHomeListView);
 
-        Bundle args = getArguments();
-        if(args != null){
-            shop_id = args.getInt("shop_id");
-            Toast.makeText(getContext(), "shop_id - "+ shop_id, Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(getContext(), "shop_id - null", Toast.LENGTH_LONG).show();
-        }
 
         adapter = new StoreHomeListViewAdapter();
         listview.setAdapter(adapter);
@@ -139,6 +235,8 @@ public class FragmentStoreHome extends Fragment {
                     FavoriteDataFileIO.deleteFavoriteData(getContext(),shop_id);
                     i--;
                 }
+
+
 
             }
         });

@@ -5,19 +5,26 @@ public class ShopInfo {
     private int shop_id;
     private String shop_name;
     private String shop_tel;
+    private String shop_address;
     private String business_hours;
     private String personal_day;
+    private String introduction;
+    private int status;
+    private String shop_img;
 
     public ShopInfo() {
     }
-    public ShopInfo(String uid, int shop_id, String shop_name, String shop_tel, String business_hours, String personal_day, String introduction) {
+    public ShopInfo(String uid, int shop_id, String shop_name, String shop_tel, String shop_address, String business_hours, String personal_day, String introduction, int status, String shop_img) {
         this.uid = uid;
         this.shop_id = shop_id;
         this.shop_name = shop_name;
         this.shop_tel = shop_tel;
+        this.shop_address = shop_address;
         this.business_hours = business_hours;
         this.personal_day = personal_day;
         this.introduction = introduction;
+        this.status = status;
+        this.shop_img = shop_img;
     }
 
     public String getUid() {
@@ -52,6 +59,14 @@ public class ShopInfo {
         this.shop_tel = shop_tel;
     }
 
+    public String getShopAddress() {
+        return shop_address;
+    }
+
+    public void setShopAddress(String shop_address) {
+        this.shop_address = shop_address;
+    }
+
     public String getBusinessHours() {
         return business_hours;
     }
@@ -76,7 +91,22 @@ public class ShopInfo {
         this.introduction = introduction;
     }
 
-    private String introduction;
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getShopImg() {
+        return shop_img;
+    }
+
+    public void setShopImg(String shop_img) {
+        this.shop_img = shop_img;
+    }
+
 
 
 }

@@ -1,6 +1,8 @@
 package com.example.kioskclient;
 
 public class StoreHomeListViewItem {
+
+
     private String id = "" ;
     private String menuName ;
     private String menuOptionTemp ;
@@ -40,5 +42,7 @@ public class StoreHomeListViewItem {
     public int getMenuCost_l() {
         return this.menuCost_l ;
     }
+
+
 
 }

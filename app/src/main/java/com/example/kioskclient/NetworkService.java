@@ -62,6 +62,18 @@ public interface NetworkService {
     Call<List<OrderDetailInfo>> get_orderdetailinfo();
     @GET("/mobilekiosk/orderdetail/{pk}/")
     Call<OrderDetailInfo> get_pk_orderdetailinfo(@Path("pk") int pk);
+
+    //ShopMenuInfo
+    @POST("/mobilekiosk/shopmenu/")
+    Call<ShopMenuInfo> post_shopMenuInfo(@Body ShopMenuInfo shopMenuInfo);
+    @PATCH("/mobilekiosk/shopmenu/{pk}/")
+    Call<ShopMenuInfo> patch_shopMenuInfo(@Path("pk") int pk, @Body ShopMenuInfo shopMenuInfo);
+    @DELETE("/api/restaurants/{pk}/")
+    Call<ShopMenuInfo> delete_shopMenuInfo(@Path("pk") int pk);
+    @GET("/mobilekiosk/shopmenu/")
+    Call<List<ShopMenuInfo>> get_shopMenuInfo();
+    @GET("/mobilekiosk/shopmenu/{pk}/")
+    Call<ShopMenuInfo> get_pk_shopMenuInfo(@Path("pk") int pk);
 }
 
 //참조 : https://duzi077.tistory.com/129?category=703147
