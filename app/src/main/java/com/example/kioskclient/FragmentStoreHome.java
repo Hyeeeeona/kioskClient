@@ -17,19 +17,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Date;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -54,18 +48,15 @@ public class FragmentStoreHome extends Fragment {
     private String sv_store_info_phone = null; //"02-123-4567";
     private String sv_store_info = null; //"커피 맛집으로 소문난 별다방입니다!";
     private int store_status = 1; //0 : 영업x, 1 : 영업중
-    private String sv_menu_name;
-    private String sv_menu_size;
-    private int sv_hotorcold;
-    private int sv_menu_price;
-    private String menu_img;
 
     private View view;
     Integer shop_id;
 
-
     private Button store_close;
 
+    StoreHomeListViewAdapter adapter;
+
+    ArrayList<StoreHomeListViewItem> storeHomeListViewItems;
 
     public FragmentStoreHome() {
         // Required empty public constructor
@@ -78,14 +69,28 @@ public class FragmentStoreHome extends Fragment {
         Log.d("진아가 보내준 shop_id", Integer.toString(shop_id));
         return fragment;
     }
-    StoreHomeListViewAdapter adapter;
-    ListView listview;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_store_home, null);
+
+        //매장 기본정보
+        storeName = (TextView) view.findViewById(R.id.tv_storeName);
+        storeInfoTime = (TextView) view.findViewById(R.id.store_info_time);
+        storeInfoPhone = (TextView) view.findViewById(R.id.store_info_phone);
+        storeInfo = (TextView) view.findViewById(R.id.store_info);
+        store_close = (Button) view.findViewById(R.id.btn_storeClose);
+        ListView listview = (ListView) view.findViewById(R.id.StoreHomeListView);
+
+        adapter = new StoreHomeListViewAdapter();
+        listview.setAdapter(adapter);
+
+        networkService = ApplicationController.getInstance().getNetworkService();
+
         //진아가 보내준 가게정보 shop_id
         Bundle args = getArguments();
         if(args != null){
@@ -96,9 +101,7 @@ public class FragmentStoreHome extends Fragment {
         }
 
         //서버에서 데이터 받아오기
-        networkService = ApplicationController.getInstance().getNetworkService();
         Call<ShopInfo> getCall = networkService.get_pk_shopinfo(shop_id);
-
         Log.d("서버", Integer.toString(shop_id));
         //shop info - 정상작동 확인
         getCall.enqueue(new Callback<ShopInfo>() {
@@ -107,7 +110,6 @@ public class FragmentStoreHome extends Fragment {
                 Boolean isExist = false;
                 if(response.isSuccessful()){
                     ShopInfo shopInfo = response.body();
-
                     sv_storeName = shopInfo.getShopName();
                     Log.d("storeName",sv_storeName);
                     sv_store_info_time = shopInfo.getBusinessHours();
@@ -120,7 +122,6 @@ public class FragmentStoreHome extends Fragment {
                     storeInfoPhone.setText("* 매장전화번호 : " + sv_store_info_phone);
                     storeInfo.setText("* 소개 : " + sv_store_info);
 
-
                 } else {
                     Log.d("debugging","Error Message : " + response.errorBody());
                 }
@@ -128,7 +129,6 @@ public class FragmentStoreHome extends Fragment {
 
             @Override
             public void onFailure(Call<ShopInfo> call, Throwable t) {
-
                 Log.d("debugging", "Fail message : " + t.getMessage());
             }
         });
@@ -138,24 +138,22 @@ public class FragmentStoreHome extends Fragment {
         getCallMenu.enqueue(new Callback<List<ShopMenuInfo>>() {
             @Override
             public void onResponse(Call<List<ShopMenuInfo>> call, Response<List<ShopMenuInfo>> response) {
-                Boolean isExist = false;
                 if(response.isSuccessful()){
                     List<ShopMenuInfo> shopMenuInfoList = response.body();
                     for(ShopMenuInfo shopmenuinfo : shopMenuInfoList){
+                        Log.d("비교","받아온값" + shopmenuinfo.getShopIdId() + "기존값" + shop_id);
                         if(shopmenuinfo.getShopIdId() == shop_id){
+                            Log.d("Menu","숍아이디 메뉴 가져옴");
+                            Log.d("Menu",shopmenuinfo.getMenuName());
 
                             //여기부터 엉망입니다..
-                            sv_menu_name = shopmenuinfo.getMenuName();
-                            sv_menu_size = shopmenuinfo.getMenuSize();
-                            sv_hotorcold = shopmenuinfo.getHotOrCold();
-                            sv_menu_price = shopmenuinfo.getMenuPrice();
-                            menu_img = shopmenuinfo.getMenuImg();
-                            adapter.addItem(Integer.toString(shop_id), sv_menu_name, "Hot and Ice", 4000, 5000, 6000);
-
-                        }else {
-                            Log.d("debugging","Error Message : " + response.errorBody());
+                            adapter.addItem(shopmenuinfo.getid(), shopmenuinfo.getMenuName(), shopmenuinfo.getHotOrCold(), shopmenuinfo.getMenuPrice(), 5000, 6000);
                         }
                     }
+                    adapter.notifyDataSetChanged();
+
+                } else {
+                    Log.d("debugging","Error Message : " + response.errorBody());
                 }
             }
 
@@ -165,22 +163,8 @@ public class FragmentStoreHome extends Fragment {
             }
         });
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_store_home, null);
-
-        //매장 기본정보
-
-        storeName = (TextView) view.findViewById(R.id.tv_storeName);
-        storeInfoTime = (TextView) view.findViewById(R.id.store_info_time);
-        storeInfoPhone = (TextView) view.findViewById(R.id.store_info_phone);
-        storeInfo = (TextView) view.findViewById(R.id.store_info);
-
-
-
-
 
         //매장 오픈 여부
-        store_close = (Button) view.findViewById(R.id.btn_storeClose);
         if (store_status == 1) {
             //매장 열였어요
             store_close.setVisibility(view.GONE);
@@ -189,17 +173,13 @@ public class FragmentStoreHome extends Fragment {
             view.setVisibility(view.VISIBLE);
         }
 
-        ListView listview = (ListView) view.findViewById(R.id.StoreHomeListView);
-
-
-        adapter = new StoreHomeListViewAdapter();
-        listview.setAdapter(adapter);
-
+        //Log.d("리스트뷰 출력",storeHomeListViewItems.get(0).getMenuName());
+/*
         adapter.addItem("1", "아메리카노", "Hot and Ice", 4000, 5000, 6000);
         adapter.addItem("2", "까페라떼", "Hot and Ice", 4500, 5500, 6500);
         adapter.addItem("3", "카라멜 마끼아또", "Hot and Ice", 5000, 6000, 7000);
         adapter.addItem("4", "까페모카", "Hot and Ice", 5000, 6000, 7000);
-
+*/
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -217,10 +197,9 @@ public class FragmentStoreHome extends Fragment {
                 intent.putExtra("shop_id",shop_id);//임시
 
                 startActivity(intent);
-
-
             }
         });
+
         //favorite click
         favorite = (ImageView) view.findViewById(R.id.store_favorite);
         favorite.setOnClickListener(new View.OnClickListener() {
@@ -235,13 +214,8 @@ public class FragmentStoreHome extends Fragment {
                     FavoriteDataFileIO.deleteFavoriteData(getContext(),shop_id);
                     i--;
                 }
-
-
-
             }
         });
-
-
         return view;
     }
 

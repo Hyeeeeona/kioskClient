@@ -6,18 +6,18 @@ public class ShopMenuInfo {
     private String menu_size;
     private int hotorcold;
     private int menu_price;
-    private int shop_id_id;
+    private int shop_id;
     private String menu_img;
 
     public ShopMenuInfo() {
     }
-    public ShopMenuInfo(int id, String menu_name, String menu_size, int hotorcold, int menu_price, int shop_id_id, String menu_img) {
+    public ShopMenuInfo(int id, String menu_name, String menu_size, int hotorcold, int menu_price, int shop_id, String menu_img) {
         this.id = id;
         this.menu_name = menu_name;
         this.menu_size = menu_size;
         this.hotorcold = hotorcold;
         this.menu_price = menu_price;
-        this.shop_id_id = shop_id_id;
+        this.shop_id = shop_id;
         this.menu_img = menu_img;
     }
 
@@ -60,11 +60,11 @@ public class ShopMenuInfo {
     }
 
     public int getShopIdId() {
-        return shop_id_id;
+        return shop_id;
     }
 
     public void setShopIdId(int shop_id_id) {
-        this.shop_id_id = shop_id_id;
+        this.shop_id = shop_id_id;
     }
 
     public String getMenuImg() {
