@@ -96,12 +96,13 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
         menuCost_s = (int) intent.getIntExtra("cost_s", intCost_s);
         menuCost_m = (int) intent.getIntExtra("cost_m", intCost_m);
         menuCost_l = (int) intent.getIntExtra("cost_l", intCost_l);
+        String size = intent.getStringExtra("size");
 
         shop_id = intent.getIntExtra("shop_id", 0);
         shop_name = intent.getStringExtra("shop_name");
 
         MenuName.setText(menuName);
-        MenuCost_S.setText(" * S : " + menuCost_s + "원");
+        MenuCost_S.setText(" * "+size+" : " + menuCost_s + "원");
         MenuCost_M.setText(" * M : " + menuCost_m + "원");
         MenuCost_L.setText(" * L : " + menuCost_l + "원");
 

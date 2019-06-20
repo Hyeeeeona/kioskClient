@@ -147,7 +147,7 @@ public class FragmentStoreHome extends Fragment {
                             Log.d("Menu",shopmenuinfo.getMenuName());
 
                             //여기부터 엉망입니다..
-                            adapter.addItem(shopmenuinfo.getid(), shopmenuinfo.getMenuName(), shopmenuinfo.getHotOrCold(), shopmenuinfo.getMenuPrice(), 5000, 6000);
+                            adapter.addItem(shopmenuinfo.getid(), shopmenuinfo.getMenuName(), shopmenuinfo.getHotOrCold(), shopmenuinfo.getMenuPrice(), 5000, 6000,shopmenuinfo.getMenuSize());
                         }
                     }
                     adapter.notifyDataSetChanged();
@@ -189,6 +189,7 @@ public class FragmentStoreHome extends Fragment {
                 Intent intent = new Intent(getContext(), StoreMenu.class);
                 intent.putExtra("strName", item.getMenuName());
                 intent.putExtra("strTemp", item.getMenuOptionTemp());
+                intent.putExtra("size", item.getMenuSize());
                 intent.putExtra("cost_s",item.getMenuCost_s());
                 intent.putExtra("cost_m",item.getMenuCost_m());
                 intent.putExtra("cost_l",item.getMenuCost_l());

@@ -68,7 +68,7 @@ public class StoreHomeListViewAdapter extends BaseAdapter {
         if (listViewItem.getMenuOptionTemp() == 0) {
             menuOpitonTempView.setVisibility(View.GONE);
         }
-        menuCost_S_View.setText("* S : " +(listViewItem.getMenuCost_s()) + "원");
+        menuCost_S_View.setText("* "+listViewItem.getMenuSize()+" : " +(listViewItem.getMenuCost_s()) + "원");
         menuCost_M_View.setText("* M : " +(listViewItem.getMenuCost_m()) + "원");
         menuCost_L_View.setText("* L : " +(listViewItem.getMenuCost_l()) + "원");
 
@@ -90,7 +90,7 @@ public class StoreHomeListViewAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(int id, String strName, int strTemp, int cost_s, int cost_m, int cost_l) {
+    public void addItem(int id, String strName, int strTemp, int cost_s, int cost_m, int cost_l, String Size) {
         StoreHomeListViewItem item = new StoreHomeListViewItem();
 
         item.setID(id);
@@ -99,6 +99,7 @@ public class StoreHomeListViewAdapter extends BaseAdapter {
         item.setCost_s(cost_s);
         item.setCost_m(cost_m);
         item.setCost_l(cost_l);
+        item.setSize(Size);
         storeHomeListViewItems.add(item);
     }
 

@@ -53,7 +53,7 @@ public class CartDataFileIO {
 
     public static JSONObject readCartDataJson(Context context){
         String filename = "CartData.json";
-        JSONObject jsonObject = null;
+        JSONObject jsonObject = new JSONObject();
         try{
             FileInputStream fileInputStream = context.openFileInput(filename);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);

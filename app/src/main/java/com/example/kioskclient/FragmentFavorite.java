@@ -61,21 +61,20 @@ public class FragmentFavorite extends Fragment {
                             if (response.isSuccessful()) {
                                 ShopInfo shopinfo = response.body();
                                 adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px), shopinfo.getShopName(), shopinfo.getBusinessHours(), shopinfo.getShopId());
+                                adapter.notifyDataSetChanged();
                             }
                         }
-
                         @Override
                         public void onFailure(Call<ShopInfo> call, Throwable t) {
-
                         }
                     });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+            listview.bringToFront();
+            listview.refreshDrawableState();
         }
-
-        adapter.notifyDataSetChanged();
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

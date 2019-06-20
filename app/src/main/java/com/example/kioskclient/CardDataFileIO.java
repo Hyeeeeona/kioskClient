@@ -53,7 +53,7 @@ public class CardDataFileIO {
 
     public static JSONArray readCardDataJson(Context context){
         String filename = "CardData.json";
-        JSONArray jsonArray = null;
+        JSONArray jsonArray = new JSONArray();
         try{
             FileInputStream fileInputStream = context.openFileInput(filename);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);

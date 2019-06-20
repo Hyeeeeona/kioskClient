@@ -232,7 +232,7 @@ public class PaymentActivity extends AppCompatActivity {
                                 status_ok = false;
                             }
                         });
-                        if(status_ok) onBackPressed();
+                        onBackPressed();
                     }
                 });
 

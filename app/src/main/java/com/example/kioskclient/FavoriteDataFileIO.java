@@ -50,7 +50,6 @@ public class FavoriteDataFileIO {
 
     public static void saveFavoriteDataJson(Context context, JSONArray jsonArray){
         String filename = "FavoriteData.json";
-
         FileOutputStream outputStream;
         try{
             outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
@@ -78,7 +77,7 @@ public class FavoriteDataFileIO {
 
     public static JSONArray readFavoriteDataJson(Context context){
         String filename = "FavoriteData.json";
-        JSONArray jsonArray = null;
+        JSONArray jsonArray = new JSONArray();
         try{
             FileInputStream fileInputStream = context.openFileInput(filename);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -94,5 +93,4 @@ public class FavoriteDataFileIO {
         }
         return jsonArray;
     }
-
 }

@@ -99,13 +99,15 @@ public class FragmentMenuCart extends Fragment {
                 JSONObject jsonObject = CartDataFileIO.makeCartDataJson(storeName.getText().toString(),jsonArray);
                 CartDataFileIO.saveCartDataJson(getContext(),jsonObject);
 
-                Intent intent = new Intent(getContext(), PaymentActivity.class);
-                intent.putExtra("StoreName",storeNameStr);
-                intent.putExtra("Store_id",shop_id);
-                intent.putExtra("menuCount",adapter.getCount());
-                intent.putExtra("FirstMenu",adapter.getItem(0).getMenuName());
-                intent.putExtra("TotalCost",adapter.getTotalCost());
-                startActivity(intent);
+                if(adapter.getTotalCost() > 0) {
+                    Intent intent = new Intent(getContext(), PaymentActivity.class);
+                    intent.putExtra("StoreName", storeNameStr);
+                    intent.putExtra("Store_id", shop_id);
+                    intent.putExtra("menuCount", adapter.getCount());
+                    intent.putExtra("FirstMenu", adapter.getItem(0).getMenuName());
+                    intent.putExtra("TotalCost", adapter.getTotalCost());
+                    startActivity(intent);
+                }
             }
         });
     }

@@ -59,7 +59,7 @@ public class HistoryDataFileIO {
 
     public static JSONArray readHistoryDataJson(Context context){
         String filename = "HistoryData.json";
-        JSONArray jsonArray = null;
+        JSONArray jsonArray = new JSONArray();
         try{
             FileInputStream fileInputStream = context.openFileInput(filename);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);

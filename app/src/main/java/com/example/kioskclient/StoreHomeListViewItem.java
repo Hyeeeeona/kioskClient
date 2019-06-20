@@ -9,6 +9,7 @@ public class StoreHomeListViewItem {
     private int menuCost_s ;
     private int menuCost_m ;
     private int menuCost_l ;
+    private String size;
 
 
     public void setID(int str) {
@@ -21,7 +22,7 @@ public class StoreHomeListViewItem {
     public void setCost_s (int cost) { menuCost_s = cost ;}
     public void setCost_m (int cost) { menuCost_m = cost ;}
     public void setCost_l (int cost) { menuCost_l = cost ;}
-
+    public void setSize (String size) {this.size = size;}
 
 
     public int getMenuID () {
@@ -42,6 +43,7 @@ public class StoreHomeListViewItem {
     public int getMenuCost_l() {
         return this.menuCost_l ;
     }
+    public String getMenuSize() {return this.size;}
 
 
 

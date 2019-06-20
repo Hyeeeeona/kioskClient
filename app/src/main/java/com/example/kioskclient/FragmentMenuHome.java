@@ -135,8 +135,6 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
             }
         }
 
-        favoriteListViewAdapter.notifyDataSetChanged();
-
         Call<List<ShopInfo>> getCall = networkService.get_shopinfo();
         getCall.enqueue(new Callback<List<ShopInfo>>() {
             @Override
@@ -167,6 +165,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         listItems.setOnItemClickListener(this);
         favoriteItems.setOnItemClickListener(this);
         locationBtn.setOnClickListener(this);
+
 
         return view;
     }
