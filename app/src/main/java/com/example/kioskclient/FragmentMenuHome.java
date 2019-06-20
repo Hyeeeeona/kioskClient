@@ -71,7 +71,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         mContext = container.getContext();
 
         searchBtn = (Button) view.findViewById(R.id.searchBtn);
-        backHomeBtn = (Button) view.findViewById(R.id.backHomeBtn);
+     //   backHomeBtn = (Button) view.findViewById(R.id.backHomeBtn);
         deleteBtn = (Button) view.findViewById(R.id.deleteBtn);
         searchText = (EditText) view.findViewById(R.id.searchText);
         listItems = (ListView) view.findViewById(R.id.listItems);
@@ -136,7 +136,6 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         }
 
         favoriteListViewAdapter.notifyDataSetChanged();
-
         Call<List<ShopInfo>> getCall = networkService.get_shopinfo();
         getCall.enqueue(new Callback<List<ShopInfo>>() {
             @Override
@@ -161,7 +160,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
             }
         });
 
-        backHomeBtn.setOnClickListener(this);
+    //    backHomeBtn.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
         searchBtn.setOnClickListener(this);
         listItems.setOnItemClickListener(this);
@@ -173,11 +172,13 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View v){
+        /*
         if(v.getId() == R.id.backHomeBtn){
             getActivity().findViewById(R.id.navigation_home).performClick();
-        } else if(v.getId() == R.id.deleteBtn){
+        } else */
+        if(v.getId() == R.id.deleteBtn){
             // 검색 후 x 버튼 클릭 시
-            backHomeBtn.setVisibility(View.VISIBLE);
+         //   backHomeBtn.setVisibility(View.VISIBLE);
             userSearchText.setVisibility(View.GONE);
             searchText.setVisibility(View.VISIBLE);
             deleteBtn.setVisibility(View.GONE);
@@ -193,7 +194,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
             listItems.setOnScrollListener(this);
             getItem();
 
-            backHomeBtn.setVisibility(View.GONE);
+        //    backHomeBtn.setVisibility(View.GONE);
             userSearchText.setVisibility(View.VISIBLE);
             searchText.setVisibility(View.GONE);
             deleteBtn.setVisibility(View.VISIBLE);
@@ -240,6 +241,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
             shop_id = adapter.getItemShopId(position);
         else
             shop_id = favoriteListViewAdapter.getItemShopId(position);
+
         transaction.replace(R.id.linear_layout, fragmentStoreHome.newInstance(shop_id));
         transaction.addToBackStack(null);
         transaction.commit();
