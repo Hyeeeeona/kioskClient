@@ -48,14 +48,18 @@ public class FragmentMenuOrderHistory extends Fragment {
                 }
                 {
                     JSONObject history = jsonArray.getJSONObject(i);
-                    int shop_id = history.getInt("shop_id");
-                    String shop_name = history.getString("shop_name");
-                    String history_menu = history.getString("history_menu");
-                    long date = history.getLong("date");
-                    Date mDate = new Date(date);
+                    if(history.isNull("shop_id")){
 
-                    adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
-                            shop_name, history_menu, mFormat.format(mDate));
+                    } else {
+                        int shop_id = history.getInt("shop_id");
+                        String shop_name = history.getString("shop_name");
+                        String history_menu = history.getString("history_menu");
+                        long date = history.getLong("date");
+                        Date mDate = new Date(date);
+
+                        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
+                                shop_name, history_menu, mFormat.format(mDate));
+                    }
                 }
             }
         } catch (JSONException e) {

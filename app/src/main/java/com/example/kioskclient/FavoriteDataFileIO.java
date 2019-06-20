@@ -1,6 +1,7 @@
 package com.example.kioskclient;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.JsonObject;
 
@@ -53,6 +54,7 @@ public class FavoriteDataFileIO {
         FileOutputStream outputStream;
         try{
             outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            Log.d("Json_fa",jsonArray.toString());
             outputStream.write(jsonArray.toString().getBytes());
             outputStream.close();
         }catch( Exception e){
@@ -66,6 +68,7 @@ public class FavoriteDataFileIO {
         FileOutputStream outputStream;
         try{
             outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            Log.d("Json_fa",jsonArray.toString());
             outputStream.write(jsonArray.toString().getBytes());
             outputStream.close();
         }catch( Exception e){

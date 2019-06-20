@@ -2,6 +2,7 @@ package com.example.kioskclient;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,9 +60,7 @@ public class FragmentFavorite extends Fragment {
                         public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
                             if (response.isSuccessful()) {
                                 ShopInfo shopinfo = response.body();
-                                adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
-                                        shopinfo.getShopName(), shopinfo.getBusinessHours());
-
+                                adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px), shopinfo.getShopName(), shopinfo.getBusinessHours());
                             }
                         }
 
@@ -75,18 +74,17 @@ public class FragmentFavorite extends Fragment {
                 }
             }
         }
-        // 데이터 하드코딩
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
-                "매장 1", "아메리카노 1");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
-                "매장 2", "아메리카노 2");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px),
-                "매장 3", "아메리카노 3");
+
+        adapter.notifyDataSetChanged();
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                FragmentStoreHome fragmentStoreHome = new FragmentStoreHome();
+                //transaction.replace(R.id.linear_layout, fragmentStoreHome.newInstance(adapter.getItemShopId(position)));
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
         return view;
