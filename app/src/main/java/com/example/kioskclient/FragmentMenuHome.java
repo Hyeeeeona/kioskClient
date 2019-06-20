@@ -71,7 +71,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         mContext = container.getContext();
 
         searchBtn = (Button) view.findViewById(R.id.searchBtn);
-        backHomeBtn = (Button) view.findViewById(R.id.backHomeBtn);
+     //   backHomeBtn = (Button) view.findViewById(R.id.backHomeBtn);
         deleteBtn = (Button) view.findViewById(R.id.deleteBtn);
         searchText = (EditText) view.findViewById(R.id.searchText);
         listItems = (ListView) view.findViewById(R.id.listItems);
@@ -135,6 +135,8 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
             }
         }
 
+        favoriteListViewAdapter.notifyDataSetChanged();
+
         Call<List<ShopInfo>> getCall = networkService.get_shopinfo();
         getCall.enqueue(new Callback<List<ShopInfo>>() {
             @Override
@@ -165,7 +167,6 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         listItems.setOnItemClickListener(this);
         favoriteItems.setOnItemClickListener(this);
         locationBtn.setOnClickListener(this);
-
 
         return view;
     }
