@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -61,6 +62,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
 
     public FragmentMenuHome() {
         // Required empty public constructor
+
     }
 
     @Override
@@ -84,6 +86,18 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         progressBar = (ProgressBar)view.findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
 
+        searchText.post(new Runnable() {
+            @Override
+            public void run() {
+                searchText.setFocusableInTouchMode(true);
+                searchText.requestFocus();
+                InputMethodManager imm = (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                imm.showSoftInput(searchText,0);
+                locationBtn.performClick();
+
+            }
+        });
 
         if (!((MainActivity)mContext).checkLocationServicesStatus()) {
             ((MainActivity)mContext).showDialogForLocationServiceSetting();
@@ -160,8 +174,12 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
                 }
             }
         });
+      /*  for(int i = 0; i < 20; i++){
+            adapter.addItem("test_"+i,0, userLocationUpdate.getDistance("인천광역시 주안동 주안역"),getResources().getDrawable(R.drawable.now_location), "해피해피", i+3);
 
-        backHomeBtn.setOnClickListener(this);
+        }
+      */
+    //    backHomeBtn.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
         searchBtn.setOnClickListener(this);
         listItems.setOnItemClickListener(this);
@@ -173,11 +191,13 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View v){
+        /*
         if(v.getId() == R.id.backHomeBtn){
             getActivity().findViewById(R.id.navigation_home).performClick();
-        } else if(v.getId() == R.id.deleteBtn){
+        } else */
+        if(v.getId() == R.id.deleteBtn){
             // 검색 후 x 버튼 클릭 시
-            backHomeBtn.setVisibility(View.VISIBLE);
+         //   backHomeBtn.setVisibility(View.VISIBLE);
             userSearchText.setVisibility(View.GONE);
             searchText.setVisibility(View.VISIBLE);
             deleteBtn.setVisibility(View.GONE);
@@ -192,8 +212,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
             // 검색 버튼 클릭 시
             listItems.setOnScrollListener(this);
             getItem();
-
-            backHomeBtn.setVisibility(View.GONE);
+        //    backHomeBtn.setVisibility(View.GONE);
             userSearchText.setVisibility(View.VISIBLE);
             searchText.setVisibility(View.GONE);
             deleteBtn.setVisibility(View.VISIBLE);
@@ -240,6 +259,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
             shop_id = adapter.getItemShopId(position);
         else
             shop_id = favoriteListViewAdapter.getItemShopId(position);
+
         transaction.replace(R.id.linear_layout, fragmentStoreHome.newInstance(shop_id));
         transaction.addToBackStack(null);
         transaction.commit();
@@ -249,21 +269,28 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastItemVisibleFlag && mLockListView == false){
             progressBar.setVisibility(View.VISIBLE);
-            getItem();
+         //   getItem();
         }
     }
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         lastItemVisibleFlag = (totalItemCount > 0) && (firstVisibleItem + visibleItemCount >= totalItemCount);
+        visibleItem = firstVisibleItem;
     }
 
     private void getItem() {
         mLockListView = true;
+        Toast.makeText(mContext, "visibleItem = " + visibleItem + "all =" + (visibleItem+OFFSET), Toast.LENGTH_LONG).show();
+
         if (lastItemVisibleFlag) {
-            for (int i = 0; i < 5; i++) {
+            for(int i = 0; i < adapter.getCount(); i++) {
+                listItems.getChildAt(i).setVisibility(View.GONE);
+            }
+            Toast.makeText(mContext, "visibleItem = " + visibleItem + "all =" + (visibleItem+OFFSET), Toast.LENGTH_LONG).show();
+            for (int i = 0; i < visibleItem + OFFSET; i++) {
 
-
+                listItems.getChildAt(i).setVisibility(View.VISIBLE);
             }
 
             new Handler().postDelayed(new Runnable() {
