@@ -45,6 +45,10 @@ public class ListViewSearchAdapter extends BaseAdapter implements Filterable {
         return position;
     }
 
+    public int getItemShopId(int position){
+        return filteredItemList.get(position).getRestId();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // ViewHoldr 패턴

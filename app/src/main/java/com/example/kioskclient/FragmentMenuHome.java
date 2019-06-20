@@ -233,7 +233,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         FragmentStoreHome fragmentStoreHome = new FragmentStoreHome();
        // ContactsContract.Data data = (ContactsContract.Data) parent.getItemAtPosition(position);
-        transaction.replace(R.id.linear_layout, fragmentStoreHome.newInstance(position));
+        transaction.replace(R.id.linear_layout, fragmentStoreHome.newInstance(adapter.getItemShopId(position)));
         transaction.addToBackStack(null);
         transaction.commit();
     }
