@@ -60,7 +60,7 @@ public class FragmentFavorite extends Fragment {
                         public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
                             if (response.isSuccessful()) {
                                 ShopInfo shopinfo = response.body();
-                                adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px), shopinfo.getShopName(), shopinfo.getBusinessHours());
+                                adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px), shopinfo.getShopName(), shopinfo.getBusinessHours(), shopinfo.getShopId());
                             }
                         }
 
@@ -82,7 +82,7 @@ public class FragmentFavorite extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 FragmentStoreHome fragmentStoreHome = new FragmentStoreHome();
-                //transaction.replace(R.id.linear_layout, fragmentStoreHome.newInstance(adapter.getItemShopId(position)));
+                transaction.replace(R.id.linear_layout, fragmentStoreHome.newInstance(adapter.getItemShopId(i)));
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

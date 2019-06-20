@@ -6,6 +6,7 @@ public class FavoriteListViewItem {
     private Drawable iconDrawable ;
     private String storeName ;
     private String menuStr ;
+    private int storeId;
 
     public void setIcon(Drawable icon) {
         iconDrawable = icon ;
@@ -16,6 +17,7 @@ public class FavoriteListViewItem {
     public void setMenu (String menu) {
         menuStr = menu ;
     }
+    public void setStoreId (int id) { storeId = id; }
 
     public Drawable getIcon() {
         return this.iconDrawable ;
@@ -26,4 +28,5 @@ public class FavoriteListViewItem {
     public String getMenuStr() {
         return this.menuStr;
     }
+    public int getStoreId() { return this.storeId; }
 }

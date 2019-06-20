@@ -64,13 +64,17 @@ public class FavoriteListViewAdapter extends BaseAdapter {
         return favoriteListViewItems.get(position) ;
     }
 
+    public int getItemShopId(int position){
+        return favoriteListViewItems.get(position).getStoreId();
+    }
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(Drawable icon, String storeName, String menuStr) {
+    public void addItem(Drawable icon, String storeName, String menuStr, int storeId) {
         FavoriteListViewItem item = new FavoriteListViewItem();
 
         item.setIcon(icon);
         item.setStoreName(storeName);
         item.setMenu(menuStr);
+        item.setStoreId(storeId);
 
         favoriteListViewItems.add(item);
     }

@@ -53,6 +53,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
     private UserLocationUpdate userLocationUpdate;
     private Context mContext;
     private boolean lastItemVisibleFlag = false;
+    private int visibleItem = 0;
     private int page = 0;
     private final int OFFSET = 5;
     private ProgressBar progressBar;
@@ -119,7 +120,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
                         public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
                             if (response.isSuccessful()) {
                                 ShopInfo shopinfo = response.body();
-                                favoriteListViewAdapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px), shopinfo.getShopName(), shopinfo.getBusinessHours());
+                                favoriteListViewAdapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px), shopinfo.getShopName(), shopinfo.getBusinessHours(), shopinfo.getShopId());
                             }
                         }
 
@@ -133,6 +134,8 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
                 }
             }
         }
+
+        favoriteListViewAdapter.notifyDataSetChanged();
 
         Call<List<ShopInfo>> getCall = networkService.get_shopinfo();
         getCall.enqueue(new Callback<List<ShopInfo>>() {
@@ -230,9 +233,14 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //리스트 클릭 시 페이지 이동 -> 각 store로 이동할 수 있도록 작업 필요 / 현재는 fragmentstorehome 페이지가 출력되도로 작업해둠
+        int shop_id = 0;
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         FragmentStoreHome fragmentStoreHome = new FragmentStoreHome();
-        transaction.replace(R.id.linear_layout, fragmentStoreHome.newInstance(adapter.getItemShopId(position)));
+        if(listItems.getVisibility() == View.VISIBLE)
+            shop_id = adapter.getItemShopId(position);
+        else
+            shop_id = favoriteListViewAdapter.getItemShopId(position);
+        transaction.replace(R.id.linear_layout, fragmentStoreHome.newInstance(shop_id));
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -250,23 +258,24 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         lastItemVisibleFlag = (totalItemCount > 0) && (firstVisibleItem + visibleItemCount >= totalItemCount);
     }
 
-    private void getItem(){
+    private void getItem() {
         mLockListView = true;
+        if (lastItemVisibleFlag) {
+            for (int i = 0; i < 5; i++) {
 
-        for(int i = 0; i < 5; i++){
 
-
-        }
-
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run(){
-                page++;
-                adapter.notifyDataSetChanged();
-                progressBar.setVisibility(View.GONE);
-                mLockListView = false;
             }
-        }, 500);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    page++;
+                    adapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                    mLockListView = false;
+                }
+            }, 500);
+        }
     }
 
 }
