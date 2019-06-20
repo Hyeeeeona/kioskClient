@@ -2,6 +2,7 @@ package com.example.kioskclient;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,9 @@ public class FavoriteListViewAdapter extends BaseAdapter {
         FavoriteListViewItem listViewItem = favoriteListViewItems.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        iconImageView.setImageDrawable(listViewItem.getIcon());
+        //imgView.setImageURI(Uri.parse(pic_uri)
+        iconImageView.setImageURI(Uri.parse(listViewItem.getIcon()));
+        //iconImageView.setImageDrawable(listViewItem.getIcon());
         storeNameTextView.setText(listViewItem.getStoreName());
         menuTextView.setText(listViewItem.getMenuStr());
 
@@ -68,7 +71,7 @@ public class FavoriteListViewAdapter extends BaseAdapter {
         return favoriteListViewItems.get(position).getStoreId();
     }
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(Drawable icon, String storeName, String menuStr, int storeId) {
+    public void addItem(String icon, String storeName, String menuStr, int storeId) {
         FavoriteListViewItem item = new FavoriteListViewItem();
 
         item.setIcon(icon);

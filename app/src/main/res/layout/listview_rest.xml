@@ -5,11 +5,13 @@
     android:layout_height="120dp">
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.25"
         android:gravity="center">
         <ImageView
+            android:visibility="gone"
             android:layout_width="@dimen/search_imageview_width_height"
             android:layout_height="@dimen/search_imageview_width_height"
             android:id="@+id/restImage"
@@ -19,6 +21,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.7"
+        android:paddingLeft="20dp"
         android:orientation="vertical"
         android:gravity="center_vertical">
         <TextView

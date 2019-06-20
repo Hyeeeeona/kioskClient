@@ -134,7 +134,9 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
                         public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
                             if (response.isSuccessful()) {
                                 ShopInfo shopinfo = response.body();
-                                favoriteListViewAdapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px), shopinfo.getShopName(), shopinfo.getBusinessHours(), shopinfo.getShopId());
+                                favoriteListViewAdapter.addItem(shopinfo.getShopImg(), shopinfo.getShopName(), shopinfo.getBusinessHours(), shopinfo.getShopId());
+                                //favoriteListViewAdapter.notifyDataSetChanged();
+                                //favoriteItems.setVisibility(View.VISIBLE);
                             }
                         }
 
@@ -167,7 +169,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
                         ShopInfoDataFileIO.saveShopInfoDataJson(mContext, jsonObject);
 
                         Toast.makeText(mContext, "distance = "+ userLocationUpdate.getDistance(shopinfo.getShopAddress()), Toast.LENGTH_LONG).show();
-                        adapter.addItem(shopinfo.getShopName(),0, userLocationUpdate.getDistance(shopinfo.getShopAddress()),getResources().getDrawable(R.drawable.now_location), shopinfo.getIntroduction(), shopinfo.getShopId());
+                        adapter.addItem(shopinfo.getShopName(),0, userLocationUpdate.getDistance(shopinfo.getShopAddress()), shopinfo.getIntroduction(), shopinfo.getShopId());
                     }
                 } else {
                     Log.d("debugging", "Error Message : " + response.errorBody());

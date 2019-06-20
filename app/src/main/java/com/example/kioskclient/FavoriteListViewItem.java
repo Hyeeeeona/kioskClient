@@ -3,12 +3,12 @@ package com.example.kioskclient;
 import android.graphics.drawable.Drawable;
 
 public class FavoriteListViewItem {
-    private Drawable iconDrawable ;
+    private String iconDrawable ;
     private String storeName ;
     private String menuStr ;
     private int storeId;
 
-    public void setIcon(Drawable icon) {
+    public void setIcon(String icon) {
         iconDrawable = icon ;
     }
     public void setStoreName(String str) {
@@ -19,7 +19,7 @@ public class FavoriteListViewItem {
     }
     public void setStoreId (int id) { storeId = id; }
 
-    public Drawable getIcon() {
+    public String getIcon() {
         return this.iconDrawable ;
     }
     public String getStoreName() {

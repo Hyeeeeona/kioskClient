@@ -1,5 +1,6 @@
 package com.example.kioskclient;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -60,7 +61,7 @@ public class FragmentFavorite extends Fragment {
                         public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
                             if (response.isSuccessful()) {
                                 ShopInfo shopinfo = response.body();
-                                adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_add_shopping_cart_24px), shopinfo.getShopName(), shopinfo.getBusinessHours(), shopinfo.getShopId());
+                                adapter.addItem(shopinfo.getShopImg(), shopinfo.getShopName(), shopinfo.getBusinessHours(), shopinfo.getShopId());
                                 adapter.notifyDataSetChanged();
                             }
                         }
