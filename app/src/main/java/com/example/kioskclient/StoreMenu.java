@@ -41,11 +41,12 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
 
     private int count;
     private int cost;
+    String size;
 
     private int shop_id;
     private String shop_name;
 
-    private String size_option = "사이즈 : S";
+    private String size_option;
     private String temp_option = "HOT, ";
 
     @Override
@@ -96,7 +97,7 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
         menuCost_s = (int) intent.getIntExtra("cost_s", intCost_s);
         menuCost_m = (int) intent.getIntExtra("cost_m", intCost_m);
         menuCost_l = (int) intent.getIntExtra("cost_l", intCost_l);
-        String size = intent.getStringExtra("size");
+        size = intent.getStringExtra("size");
 
         shop_id = intent.getIntExtra("shop_id", 0);
         shop_name = intent.getStringExtra("shop_name");
@@ -108,6 +109,7 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
 
         cost = menuCost_s;
         btnMenuCost.setText(Integer.toString(count) + "개 담기       " + (count * cost) + "원");
+        size_option = size;
     }
 
     @Override
@@ -169,7 +171,7 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
 
         if (checkedId == R.id.RBsmall) {
             cost = menuCost_s;
-            size_option = "사이즈 : S";
+            size_option = size;
             btnMenuCost.setText(Integer.toString(count) + "개 담기       " + (count * cost) + "원");
         } else if (checkedId == R.id.RBmid) {
             cost = menuCost_m;

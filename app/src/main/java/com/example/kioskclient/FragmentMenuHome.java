@@ -168,7 +168,6 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
                         JSONObject jsonObject = ShopInfoDataFileIO.makeShopInfoDataJson(shopinfo);
                         ShopInfoDataFileIO.saveShopInfoDataJson(mContext, jsonObject);
 
-                        Toast.makeText(mContext, "distance = "+ userLocationUpdate.getDistance(shopinfo.getShopAddress()), Toast.LENGTH_LONG).show();
                         adapter.addItem(shopinfo.getShopName(),0, userLocationUpdate.getDistance(shopinfo.getShopAddress()), shopinfo.getIntroduction(), shopinfo.getShopId());
                     }
                 } else {

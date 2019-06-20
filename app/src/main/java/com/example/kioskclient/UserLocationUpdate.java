@@ -171,7 +171,6 @@ public class UserLocationUpdate extends Service implements LocationListener {
         end.setLatitude(geoPoint.targetLatitude);
         end.setLongitude(geoPoint.targetLongitude);
         String distance = String.format("%.2f",start.distanceTo(end));
-        Toast.makeText(mContext, "distance = " + distance, Toast.LENGTH_LONG).show();
 
         return distance;
     }
