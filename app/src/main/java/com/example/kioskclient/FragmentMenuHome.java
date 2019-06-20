@@ -6,6 +6,7 @@ import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -149,7 +150,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
                         ShopInfoDataFileIO.saveShopInfoDataJson(mContext, jsonObject);
 
                         Toast.makeText(mContext, "distance = "+ userLocationUpdate.getDistance(shopinfo.getShopAddress()), Toast.LENGTH_LONG).show();
-                        adapter.addItem(shopinfo.getShopName(),0, userLocationUpdate.getDistance(shopinfo.getShopAddress()),getResources().getDrawable(R.drawable.now_location), shopinfo.getIntroduction());
+                        adapter.addItem(shopinfo.getShopName(),0, userLocationUpdate.getDistance(shopinfo.getShopAddress()),getResources().getDrawable(R.drawable.now_location), shopinfo.getIntroduction(), shopinfo.getShopId());
                     }
                 } else {
                     Log.d("debugging", "Error Message : " + response.errorBody());
@@ -231,6 +232,7 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         //리스트 클릭 시 페이지 이동 -> 각 store로 이동할 수 있도록 작업 필요 / 현재는 fragmentstorehome 페이지가 출력되도로 작업해둠
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         FragmentStoreHome fragmentStoreHome = new FragmentStoreHome();
+       // ContactsContract.Data data = (ContactsContract.Data) parent.getItemAtPosition(position);
         transaction.replace(R.id.linear_layout, fragmentStoreHome.newInstance(position));
         transaction.addToBackStack(null);
         transaction.commit();

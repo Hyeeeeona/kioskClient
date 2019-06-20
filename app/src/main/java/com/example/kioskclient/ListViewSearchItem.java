@@ -9,6 +9,7 @@ public class ListViewSearchItem {
         private Number restScore;
         private String restDistance;
         private String restMain;
+        private int restId;
 
         public void setRestIcon(Drawable icon) {
             restIcon = icon;
@@ -23,6 +24,7 @@ public class ListViewSearchItem {
         public void setRestMain(String mainMenu) {
             restMain = mainMenu;
         }
+        public void setRestId(int id) { restId = id; }
 
         public Drawable getRestIcon() {
             return this.restIcon;
@@ -35,5 +37,6 @@ public class ListViewSearchItem {
         }
         public String getRestDistance() { return this.restDistance; }
         public String getRestMain() { return this.restMain; }
+        public int getRestId() { return this.restId; }
 
 }

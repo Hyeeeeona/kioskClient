@@ -79,7 +79,7 @@ public class ListViewSearchAdapter extends BaseAdapter implements Filterable {
         return convertView;
     }
 
-    public void addItem(String name, Number score, String distance, Drawable icon, String main) {
+    public void addItem(String name, Number score, String distance, Drawable icon, String main, int id) {
         ListViewSearchItem item = new ListViewSearchItem();
 
         item.setRestName(name);
@@ -87,6 +87,7 @@ public class ListViewSearchAdapter extends BaseAdapter implements Filterable {
         item.setRestDistance(distance);
         item.setRestMain(main);
         item.setRestIcon(icon);
+        item.setRestId(id);
 
         ListViewSearchItemList.add(item);
     }
