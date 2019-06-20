@@ -232,7 +232,6 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
         //리스트 클릭 시 페이지 이동 -> 각 store로 이동할 수 있도록 작업 필요 / 현재는 fragmentstorehome 페이지가 출력되도로 작업해둠
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         FragmentStoreHome fragmentStoreHome = new FragmentStoreHome();
-       // ContactsContract.Data data = (ContactsContract.Data) parent.getItemAtPosition(position);
         transaction.replace(R.id.linear_layout, fragmentStoreHome.newInstance(adapter.getItemShopId(position)));
         transaction.addToBackStack(null);
         transaction.commit();

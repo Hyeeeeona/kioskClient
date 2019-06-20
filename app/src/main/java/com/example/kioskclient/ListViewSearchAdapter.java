@@ -46,6 +46,7 @@ public class ListViewSearchAdapter extends BaseAdapter implements Filterable {
     }
 
     public int getItemShopId(int position){
+
         return filteredItemList.get(position).getRestId();
     }
 
