@@ -58,9 +58,6 @@ public class FragmentMenuCart extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        String Jsonstr = JsonExample.makeJsonStringCartDataExample();
-        Log.d("FragmentCart",Jsonstr);
-
         ListView listview = (ListView) view.findViewById(R.id.listview_cart) ;
         storeName = (TextView) view.findViewById(R.id.menu_cart_store_name);
         btnpayment = (Button) view.findViewById(R.id.btn_payment);
@@ -72,8 +69,7 @@ public class FragmentMenuCart extends Fragment {
         listview.setAdapter(adapter) ;
 
         try {
-            JSONObject jsonObject = new JSONObject(Jsonstr);
-            //JSONObject jsonObject = CartDataFileIO.readCartDataJson(getContext());
+            JSONObject jsonObject = CartDataFileIO.readCartDataJson(getContext());
             storeNameStr = jsonObject.getString("StoreName");
             shop_id = jsonObject.getInt("StoreId");
             Log.d("shop_id","cartFrag"+shop_id);

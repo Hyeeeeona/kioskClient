@@ -64,11 +64,21 @@ public class StoreHomeListViewAdapter extends BaseAdapter {
 
         // 아이템 내 각 위젯에 데이터 반영
         menuNameView.setText(listViewItem.getMenuName());
-        menuOpitonTempView.setText("Hot and Ice");
+        menuOpitonTempView.setText("HOT and ICE");
+        menuOpitonTempView.setVisibility(View.VISIBLE);
         if (listViewItem.getMenuOptionTemp() == 0) {
             menuOpitonTempView.setVisibility(View.GONE);
+        } else if(listViewItem.getMenuOptionTemp() == 1) {
+            menuOpitonTempView.setText("ICE Only");
+            menuOpitonTempView.setVisibility(View.VISIBLE);
+        } else if(listViewItem.getMenuOptionTemp() == 2) {
+            menuOpitonTempView.setText("HOT Only");
+            menuOpitonTempView.setVisibility(View.VISIBLE);
+        } else if(listViewItem.getMenuOptionTemp() == 3) {
+            menuOpitonTempView.setText("HOT and ICE");
+            menuOpitonTempView.setVisibility(View.VISIBLE);
         }
-        menuCost_S_View.setText("* "+listViewItem.getMenuSize()+" : " +(listViewItem.getMenuCost_s()) + "원");
+        menuCost_S_View.setText(" "+ (listViewItem.getMenuCost_s()) + "원");
         menuCost_M_View.setText("* M : " +(listViewItem.getMenuCost_m()) + "원");
         menuCost_L_View.setText("* L : " +(listViewItem.getMenuCost_l()) + "원");
 

@@ -43,6 +43,7 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
     private int count;
     private int cost;
     String size;
+    int temp;
 
     private int shop_id;
     private String shop_name;
@@ -69,6 +70,7 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
         MenuName = (TextView) findViewById(R.id.tv_menuName);
         RG = (RadioGroup) findViewById(R.id.RG);
         RGtemp = findViewById(R.id.RGtemp);
+
         MenuCost_S = (RadioButton) findViewById(R.id.RBsmall);
         MenuCost_M = (RadioButton) findViewById(R.id.RBmid);
         MenuCost_L = (RadioButton) findViewById(R.id.RBlarge);
@@ -77,10 +79,11 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
         MenuTemp_H = findViewById(R.id.RBhot);
         MenuTemp_I = findViewById(R.id.RBiced);
 
+        RadioButton HotB = findViewById(R.id.RBhot);
+        RadioButton IceB = findViewById(R.id.RBiced);
         MenuCost_S.setChecked(true);
         MenuTemp_H.setChecked(true);
         RG.setOnCheckedChangeListener(this);
-        RGtemp.setOnCheckedChangeListener(this);
 
         count = Integer.parseInt(menuCountView.getText().toString());
 
@@ -104,8 +107,24 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
         hotorcold = (int) intent.getIntExtra("strTemp", hotorcold);
         Log.d("hyeona", "hotorcold : " + hotorcold);
         if (hotorcold == 0) {
-            MenuTemp.setVisibility(View.GONE);
-            RGtemp.setVisibility(View.GONE);
+            temp_option = "옵션 없음";
+            HotB.setVisibility(View.GONE);
+            IceB.setVisibility(View.GONE);
+        } else if(hotorcold == 1) {
+            IceB.setChecked(true);
+            temp_option = "ICE";
+            HotB.setVisibility(View.GONE);
+            IceB.setVisibility(View.VISIBLE);
+        } else if (hotorcold == 2) {
+            HotB.setChecked(true);
+            temp_option = "HOT";
+            HotB.setVisibility(View.VISIBLE);
+            IceB.setVisibility(View.GONE);
+        } else if(hotorcold == 3) {
+            temp_option = "HOT";
+            HotB.setChecked(true);
+            HotB.setVisibility(View.VISIBLE);
+            IceB.setVisibility(View.VISIBLE);
         }
 
         shop_id = intent.getIntExtra("shop_id", 0);
@@ -161,7 +180,7 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
                 JSONObject menuDataJsonObject = new JSONObject();
                 menuDataJsonObject.put("MenuName",MenuName.getText().toString());
                 menuDataJsonObject.put("MenuCount",count);
-                menuDataJsonObject.put("MenuOption",temp_option + size_option);
+                menuDataJsonObject.put("MenuOption",temp_option );
                 menuDataJsonObject.put("MenuCost",cost);
                 resultArray.put(menuDataJsonObject);
                 result.put("MenuData",resultArray);
@@ -194,10 +213,10 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
         }
 
         if (checkedId == R.id.RBhot) {
-            temp_option = "HOT, ";
+            temp_option = "HOT";
         }
         if(checkedId == R.id.RBiced) {
-            temp_option = "ICE, ";
+            temp_option = "ICE";
         }
     }
 }
