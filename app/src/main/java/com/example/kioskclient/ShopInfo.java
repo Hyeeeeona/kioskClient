@@ -23,7 +23,7 @@ public class ShopInfo {
         this.business_hours = business_hours;
         this.personal_day = personal_day;
         this.introduction = introduction;
-        this.status = status;
+        this.status = 1;
         this.shop_img = shop_img;
     }
 
@@ -96,7 +96,7 @@ public class ShopInfo {
     }
 
     public void setStatus(int status) {
-        this.status = status;
+        this.status = 1;
     }
 
     public String getShopImg() {
