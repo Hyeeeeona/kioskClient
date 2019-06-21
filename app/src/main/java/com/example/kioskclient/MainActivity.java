@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ApplicationController application = ApplicationController.getInstance();
-        application.buildNetworkService( "9fe6f6da.ngrok.io");
+        application.buildNetworkService( "10.0.2.2", 8000);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         fragmentManager = getSupportFragmentManager();

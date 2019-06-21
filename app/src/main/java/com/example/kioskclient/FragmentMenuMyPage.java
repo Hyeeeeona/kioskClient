@@ -3,8 +3,10 @@ package com.example.kioskclient;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +24,18 @@ public class FragmentMenuMyPage extends Fragment {
     public FragmentMenuMyPage() {
         // Required empty public constructor
     }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().setTitle("마이페이지");
 
-
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_menu_my_page, null);
         mAuth = FirebaseAuth.getInstance();
-
 
 
         view.findViewById(R.id.favorite).setOnClickListener(new View.OnClickListener() {
@@ -55,20 +60,6 @@ public class FragmentMenuMyPage extends Fragment {
                 mAuth.signOut();
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 getActivity().finish();
-            }
-        });
-        view.findViewById(R.id.testpage_btn1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentStoreHome fragmentStoreHome= new FragmentStoreHome();
-                setFragment(fragmentStoreHome);
-            }
-        });
-        view.findViewById(R.id.testpage_btn2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), TestActivity.class);
-                startActivity(intent);
             }
         });
         return view;

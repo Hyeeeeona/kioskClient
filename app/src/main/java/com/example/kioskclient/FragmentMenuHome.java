@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -65,6 +66,12 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
 
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().setTitle("주문의민족");
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -167,7 +174,6 @@ public class FragmentMenuHome extends Fragment implements View.OnClickListener, 
                     for (ShopInfo shopinfo : shopinfoList ) {
                         JSONObject jsonObject = ShopInfoDataFileIO.makeShopInfoDataJson(shopinfo);
                         ShopInfoDataFileIO.saveShopInfoDataJson(mContext, jsonObject);
-
                         adapter.addItem(shopinfo.getShopName(),0, userLocationUpdate.getDistance(shopinfo.getShopAddress()), shopinfo.getIntroduction(), shopinfo.getShopId());
                     }
                 } else {

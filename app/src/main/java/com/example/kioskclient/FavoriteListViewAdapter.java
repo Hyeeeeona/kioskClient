@@ -47,7 +47,7 @@ public class FavoriteListViewAdapter extends BaseAdapter {
 
         // 아이템 내 각 위젯에 데이터 반영
         //imgView.setImageURI(Uri.parse(pic_uri)
-        iconImageView.setImageURI(Uri.parse(listViewItem.getIcon()));
+        //iconImageView.setImageURI(Uri.parse(listViewItem.getIcon()));
         //iconImageView.setImageDrawable(listViewItem.getIcon());
         storeNameTextView.setText(listViewItem.getStoreName());
         menuTextView.setText(listViewItem.getMenuStr());

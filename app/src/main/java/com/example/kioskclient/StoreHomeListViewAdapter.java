@@ -64,7 +64,7 @@ public class StoreHomeListViewAdapter extends BaseAdapter {
 
         // 아이템 내 각 위젯에 데이터 반영
         menuNameView.setText(listViewItem.getMenuName());
-        menuOpitonTempView.setText("Hot and Icd");
+        menuOpitonTempView.setText("Hot and Ice");
         if (listViewItem.getMenuOptionTemp() == 0) {
             menuOpitonTempView.setVisibility(View.GONE);
         }

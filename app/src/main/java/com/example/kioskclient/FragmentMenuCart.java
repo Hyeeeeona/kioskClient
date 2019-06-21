@@ -42,6 +42,8 @@ public class FragmentMenuCart extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("FragmentCart","onCreate");
+        getActivity().setTitle("장바구니");
+
     }
 
     @Override
@@ -70,8 +72,8 @@ public class FragmentMenuCart extends Fragment {
         listview.setAdapter(adapter) ;
 
         try {
-            //JSONObject jsonObject = new JSONObject(Jsonstr);
-            JSONObject jsonObject = CartDataFileIO.readCartDataJson(getContext());
+            JSONObject jsonObject = new JSONObject(Jsonstr);
+            //JSONObject jsonObject = CartDataFileIO.readCartDataJson(getContext());
             storeNameStr = jsonObject.getString("StoreName");
             shop_id = jsonObject.getInt("StoreId");
             Log.d("shop_id","cartFrag"+shop_id);

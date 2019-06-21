@@ -55,23 +55,26 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
         android:text="로그인"
+        android:background="@drawable/button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_pw" />
 
     <Button
         android:id="@+id/btn_register"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp"
         android:text="회원가입"
+        android:background="@drawable/button"
         app:layout_constraintTop_toBottomOf="@id/btn_login"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>

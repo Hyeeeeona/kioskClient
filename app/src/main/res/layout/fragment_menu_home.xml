@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentMenuHome">
+    tools:context=".FragmentMenuHome"
+    android:background="#FAFAFA">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -31,6 +32,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="17dp"
                 android:layout_weight="0.7"
+                android:paddingLeft="10dp"
                 android:background="@null"
                 android:hint="가게이름으로 검색"
                 android:textSize="@dimen/search_text_big_size"
@@ -83,6 +85,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/listText"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:textColor="@color/colorPrimaryDark"
                 android:text="즐겨찾기 목록"/>
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -100,7 +105,7 @@
                     android:id="@+id/listItems"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:divider="@null"
+                    android:divider="#F4F4F4"
                     android:textFilterEnabled="true"
                     android:visibility="gone"
                     android:layout_above="@+id/progressbar">

@@ -23,6 +23,7 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
     private TextView StoreName;
     private TextView MenuName;
     private TextView menuCountView;
+    private TextView MenuTemp;
     private Button btnMenuCost;
     private Button btnMenuCountUp;
     private Button btnMenuCountDown;
@@ -72,6 +73,7 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
         MenuCost_M = (RadioButton) findViewById(R.id.RBmid);
         MenuCost_L = (RadioButton) findViewById(R.id.RBlarge);
 
+        MenuTemp = (TextView)findViewById(R.id.tv_menuTemp);
         MenuTemp_H = findViewById(R.id.RBhot);
         MenuTemp_I = findViewById(R.id.RBiced);
 
@@ -93,14 +95,22 @@ public class StoreMenu extends AppCompatActivity implements View.OnClickListener
         int intCost_s = 0;
         int intCost_m = 0;
         int intCost_l = 0;
+        int hotorcold = 0;
 
         menuCost_s = (int) intent.getIntExtra("cost_s", intCost_s);
         menuCost_m = (int) intent.getIntExtra("cost_m", intCost_m);
         menuCost_l = (int) intent.getIntExtra("cost_l", intCost_l);
         size = intent.getStringExtra("size");
+        hotorcold = (int) intent.getIntExtra("strTemp", hotorcold);
+        Log.d("hyeona", "hotorcold : " + hotorcold);
+        if (hotorcold == 0) {
+            MenuTemp.setVisibility(View.GONE);
+            RGtemp.setVisibility(View.GONE);
+        }
 
         shop_id = intent.getIntExtra("shop_id", 0);
         shop_name = intent.getStringExtra("shop_name");
+        StoreName.setText(shop_name);
 
         MenuName.setText(menuName);
         MenuCost_S.setText(" * "+size+" : " + menuCost_s + "원");

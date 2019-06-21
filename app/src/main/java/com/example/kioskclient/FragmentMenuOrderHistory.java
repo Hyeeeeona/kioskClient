@@ -2,8 +2,10 @@ package com.example.kioskclient;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,12 @@ import java.util.Date;
  */
 public class FragmentMenuOrderHistory extends Fragment {
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().setTitle("주문내역");
+
+    }
 
     public FragmentMenuOrderHistory() {
         // Required empty public constructor
